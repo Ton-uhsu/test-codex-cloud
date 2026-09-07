@@ -1,9 +1,10 @@
-import { DAYS, MUSCLES, localDay, localDateKey, viewFromHash, loadGuide, filterExercises } from './lib/guide.mjs';
-import { renderView } from './lib/views.mjs';
+import { DAYS, MUSCLES, localDay, localDateKey, viewFromHash, loadGuide, filterExercises } from './lib/guide.mjs?v=3';
+import { renderView } from './lib/views.mjs?v=3';
+import { playVideo, stopVideos } from './lib/video.mjs?v=3';
 
 const app = document.querySelector('#app');
 const announcement = document.querySelector('#announcement');
-const dataURL = new URL('./data/guide.json?v=2', import.meta.url);
+const dataURL = new URL('./data/guide.json?v=3', import.meta.url);
 const state = { view: viewFromHash(location.hash), today: localDay(), day: localDay(), muscle: 'all' };
 let data;
 let dateKey = localDateKey();
@@ -51,6 +52,11 @@ app.addEventListener('click', (event) => {
   if (!button) return;
   if (button.hasAttribute('data-retry')) { void start(); return; }
   if (!data) return;
+  if (button.hasAttribute('data-play-video')) {
+    const exercise = data.exercises.find((item) => item.id === button.dataset.playVideo);
+    if (exercise) playVideo(app, exercise, data.exercises);
+    return;
+  }
   if (button.hasAttribute('data-day')) {
     const day = Number(button.dataset.day);
     if (!Number.isInteger(day) || day < 0 || day > 6) return;
@@ -66,6 +72,16 @@ app.addEventListener('click', (event) => {
     announcement.textContent = `${MUSCLES[state.muscle]} ${filterExercises(data, state.muscle).length} ท่า`;
   }
 });
+
+app.addEventListener('toggle', (event) => {
+  if (data && event.target.matches('details.exercise') && !event.target.open) {
+    stopVideos(event.target, data.exercises);
+  }
+}, true);
+
+app.addEventListener('error', (event) => {
+  if (event.target.matches('img[data-video-image]')) event.target.hidden = true;
+}, true);
 
 window.addEventListener('hashchange', () => {
   // Preserve the current view when the keyboard skip link targets main.
