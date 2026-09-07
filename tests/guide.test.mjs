@@ -18,11 +18,11 @@ test('all published exercise data passes validation', () => {
   assert.deepEqual([data.exercises.find((e) => e.id === 'wall-pushup').repsMin, data.exercises.find((e) => e.id === 'wall-pushup').repsMax], [5, 10]);
 });
 
-test('A/B each cover chest, back, shoulders and legs with six unique exercises', () => {
+test('A/B each cover chest, back, shoulders and legs with five unique exercises', () => {
   for (const day of [1, 4]) {
     const workout = workoutForDay(data, day);
-    assert.equal(workout.exercises.length, 6);
-    assert.equal(new Set(workout.exercises.map((e) => e.id)).size, 6);
+    assert.equal(workout.exercises.length, 5);
+    assert.equal(new Set(workout.exercises.map((e) => e.id)).size, 5);
     assert.deepEqual([...new Set(workout.exercises.map((e) => e.muscle))].sort(), ['back', 'chest', 'legs', 'shoulders']);
   }
 });
@@ -88,6 +88,11 @@ test('invalid or incomplete data fails closed before rendering', () => {
     (d) => { d.exercises[0].repsMax = 1; },
     (d) => { d.exercises[0].muscle = 'unknown'; },
     (d) => { d.exercises[0].techniqueSource = 'missing'; },
+    (d) => { d.exercises[0].equipmentTypes = ['machine']; },
+    (d) => { d.exercises[0].equipmentTypes = ['bench']; },
+    (d) => { delete d.exercises[0].video; },
+    (d) => { d.exercises[0].video.youtubeId = 'bad-id'; },
+    (d) => { d.exercises[0].video.sourceUrl = 'javascript:alert(1)'; },
     (d) => { d.sources.acsm.url = 'javascript:alert(1)'; },
     (d) => { d.program.workouts.A.exercises.push('missing'); },
     (d) => { d.program.weekly = [null]; },
@@ -105,7 +110,8 @@ test('every day renders the correct workout or a usable rest-day action', () => 
   for (let day = 0; day < 7; day += 1) {
     const html = renderView(data, { ...state, day });
     const isTraining = Boolean(data.program.weekly[day]);
-    assert.equal((html.match(/<details class="exercise">/g) || []).length, isTraining ? 6 : 0);
+    assert.equal((html.match(/<details class="exercise"(?: open)?>/g) || []).length, isTraining ? 5 : 0);
+    assert.equal((html.match(/<details class="exercise" open>/g) || []).length, isTraining ? 1 : 0);
     assert.equal((html.match(/class="day"[^>]*aria-pressed="true"/g) || []).length, 1);
     assert.ok(html.includes(`data-day="${day}" aria-pressed="true"`));
     if (!isTraining) assert.ok(html.includes(`ดูวันฝึกถัดไป · ${DAYS[nextTrainingDay(data, day)]}`));
@@ -135,11 +141,14 @@ test('exercise cards expose full steps, dose, equipment, cautions and provenance
       assert.ok(html.includes(escapeHTML(text)));
     }
     assert.ok(html.includes(escapeHTML(data.sources[exercise.techniqueSource].url)));
-    assert.ok(html.includes('ภาพสาธิตต้นฉบับ'));
+    assert.ok(html.includes('อ่านวิธีทำต้นฉบับ'));
+    assert.ok(html.includes(`data-play-video="${exercise.id}"`));
+    assert.ok(html.includes(`https://www.youtube.com/watch?v=${exercise.video.youtubeId}`));
   }
   const unsafe = { ...data.exercises[0], name: '<img src=x onerror=alert(1)>', steps: ['<script>alert(1)</script>'] };
   const html = exerciseCard(data, unsafe);
-  assert.ok(!html.includes('<script>') && !html.includes('<img'));
+  assert.ok(!html.includes('<script>') && !html.includes('<img src=x'));
+  assert.ok(html.includes('&lt;img src=x'));
 });
 
 test('data loading handles success, HTTP errors, malformed JSON and schema errors', async () => {
@@ -165,12 +174,12 @@ test('entrypoint, modules and JSON use existing relative assets under the GitHub
   const assets = [...html.matchAll(/(?:href|src)="(\.\/[^"#]+)"/g)].map((match) => match[1]);
   assert.equal(assets.length, 2);
   for (const asset of assets) await access(new URL(asset.split('?')[0], root));
-  for (const path of ['app.js', 'lib/guide.mjs', 'lib/views.mjs']) {
+  for (const path of ['app.js', 'lib/guide.mjs', 'lib/views.mjs', 'lib/video.mjs']) {
     const text = await readFile(new URL(path, root), 'utf8');
     for (const match of text.matchAll(/from '(\.[^']+)'/g)) await access(new URL(match[1], new URL(path, root)));
   }
   const app = await readFile(new URL('app.js', root), 'utf8');
-  assert.ok(app.includes("new URL('./data/guide.json?v=2', import.meta.url)"));
+  assert.ok(app.includes("new URL('./data/guide.json?v=3', import.meta.url)"));
   assert.equal(new URL('./data/guide.json', 'https://ton-uhsu.github.io/test-codex-cloud/app.js').pathname, '/test-codex-cloud/data/guide.json');
   await access(new URL('data/guide.json', root));
   await access(new URL('.nojekyll', root));

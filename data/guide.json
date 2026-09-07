@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "reviewedAt": "2026-09-07",
   "sources": {
     "acsm": {
@@ -27,33 +27,9 @@
       "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/",
       "description": "วิธีวิดพื้นกับผนังและภาพสาธิตสำหรับเริ่มฝึก"
     },
-    "ace-chest": {
-      "name": "ACE · Seated Chest Press",
-      "url": "https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/"
-    },
-    "ace-row": {
-      "name": "ACE · Seated Row",
-      "url": "https://www.acefitness.org/resources/everyone/exercise-library/168/seated-row/"
-    },
-    "ace-pulldown": {
-      "name": "ACE · Seated Lat Pulldown",
-      "url": "https://www.acefitness.org/resources/everyone/exercise-library/158/seated-lat-pulldown/"
-    },
-    "ace-legpress": {
-      "name": "ACE · Seated Leg Press",
-      "url": "https://www.acefitness.org/resources/everyone/exercise-library/154/seated-leg-press/"
-    },
     "ace-lateral": {
       "name": "ACE · Lateral Raise",
       "url": "https://www.acefitness.org/resources/everyone/exercise-library/26/lateral-raise/"
-    },
-    "ace-front": {
-      "name": "ACE · Front Raise",
-      "url": "https://www.acefitness.org/resources/everyone/exercise-library/54/front-raise/"
-    },
-    "ace-curl": {
-      "name": "ACE · Lying Hamstrings Curl",
-      "url": "https://www.acefitness.org/resources/everyone/exercise-library/153/lying-hamstrings-curl/"
     },
     "ace-bridge": {
       "name": "ACE · Glute Bridge",
@@ -62,11 +38,41 @@
     "ace-squat": {
       "name": "ACE · Bodyweight Squat",
       "url": "https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/"
+    },
+    "ms-floor": {
+      "name": "Muscle & Strength · Dumbbell Floor Press",
+      "url": "https://www.muscleandstrength.com/exercises/dumbbell-floor-press.html",
+      "description": "ดันอกบนพื้นด้วยดัมเบล ไม่ต้องใช้ม้านั่ง"
+    },
+    "pg-row": {
+      "name": "PureGym · Dumbbell Bent Over Row",
+      "url": "https://www.puregym.com/exercises/back/rows/dumbbell-bent-over-row/",
+      "description": "ดึงดัมเบลสองข้างในท่าพับสะโพก พร้อมคลิปจากผู้ฝึกสอน"
+    },
+    "ms-reverse": {
+      "name": "Muscle & Strength · Bent Over Dumbbell Reverse Fly",
+      "url": "https://www.muscleandstrength.com/exercises/bent-over-dumbbell-reverse-fly.html",
+      "description": "กางแขนในท่าพับสะโพก เพื่อฝึกไหล่ด้านหลังและหลังส่วนบน"
+    },
+    "pg-press": {
+      "name": "PureGym · Dumbbell Shoulder Press",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/dumbbell-shoulder-press/",
+      "description": "ดันดัมเบลเหนือศีรษะในท่ายืน"
+    },
+    "pg-goblet": {
+      "name": "PureGym · Goblet Squat",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/goblet-squat/",
+      "description": "สควอตโดยถือดัมเบลไว้ใกล้อก"
+    },
+    "nasm-rdl": {
+      "name": "NASM · Dumbbell Romanian Deadlift",
+      "url": "https://www.nasm.org/resource-center/exercise-library/dumbbell-romanian-deadlift",
+      "description": "ท่าพับสะโพกที่ NASM จัดระดับกลาง เก็บไว้เรียนรู้เพิ่ม ยังไม่รวมในตารางเริ่มต้น"
     }
   },
   "program": {
-    "name": "พื้นฐานทั้งตัว A/B",
-    "audience": "ผู้ใหญ่ทั่วไปที่เริ่มฝึกในยิมและไม่มีข้อห้ามในการออกกำลังกาย",
+    "name": "ดัมเบลที่บ้าน A/B",
+    "audience": "ผู้ใหญ่ทั่วไปที่เริ่มฝึกที่บ้าน มีดัมเบล และไม่มีข้อห้ามในการออกกำลังกาย",
     "provenance": "ตาราง A/B และการเลือกท่าเรียบเรียงขึ้นสำหรับเว็บนี้จากหลักการทั่วไป ไม่ใช่โปรแกรมเฉพาะบุคคลหรือโปรแกรมที่หน่วยงานต้นฉบับรับรอง",
     "doseNote": "เว็บใช้ 2 เซ็ต × 8–12 ครั้งเป็นจุดเริ่มต้นตามแนวทางทั่วไปของ NHS; วิดพื้นกับผนังใช้ 5–10 ครั้งตามหน้าสาธิต แต่ลดจาก 3 เหลือ 2 เซ็ตสำหรับตัวอย่างนี้",
     "restNote": "พักเริ่มต้น 90 วินาทีระหว่างเซ็ตและก่อนเปลี่ยนท่า เป็นค่าตัวอย่างในช่วง 60–120 วินาที ไม่ใช่เวลาตายตัว หากยังเหนื่อยหรือคุมท่าไม่ไหว ให้พักเพิ่มหรือลดน้ำหนัก",
@@ -87,30 +93,29 @@
     ],
     "workouts": {
       "A": {
-        "name": "สร้างพื้นฐาน",
-        "description": "ฝึกขา ดันอก ดึงหลัง และไหล่ ให้ครบในวันเดียว",
+        "name": "เริ่มจากท่าพื้นฐาน",
+        "description": "ฝึกทั้งตัว 5 ท่า เริ่มด้วยสควอตมือเปล่าและใช้พื้นแทนม้านั่ง",
         "exercises": [
-          "leg-press",
-          "chest-press",
-          "seated-row",
-          "leg-curl",
-          "lateral-raise",
-          "glute-bridge"
+          "bodyweight-squat",
+          "floor-press",
+          "dumbbell-row",
+          "glute-bridge",
+          "lateral-raise"
         ]
       },
       "B": {
-        "name": "ทบทวนแล้วเปลี่ยนมุม",
-        "description": "ฝึกทั้งตัวเช่นเดิม เปลี่ยนท่าดันและดึงเพื่อเรียนรู้รูปแบบการเคลื่อนไหว",
+        "name": "ดัมเบลวันถัดไป",
+        "description": "ฝึกทั้งตัว 5 ท่า เพิ่มสควอตถือดัมเบลและท่าดันไหล่ หากดัมเบลยังหนักไป ให้ซ้อมมือเปล่า",
         "exercises": [
-          "bodyweight-squat",
+          "goblet-squat",
           "wall-pushup",
-          "lat-pulldown",
-          "leg-curl",
-          "front-raise",
-          "glute-bridge"
+          "dumbbell-row",
+          "glute-bridge",
+          "shoulder-press"
         ]
       }
-    }
+    },
+    "equipmentNote": "ดัมเบล 1 คู่ (บางท่าใช้ 1 ลูก) พื้นที่ไม่ลื่น และผนังที่มั่นคง เสื่อปูพื้นเป็นตัวเลือก ไม่ต้องมีม้านั่งหรือแมชชีน"
   },
   "exercises": [
     {
@@ -119,19 +124,31 @@
       "repsMax": 12,
       "restSeconds": 90,
       "doseSource": "nhs-strength",
-      "id": "chest-press",
-      "name": "ดันอกด้วยเครื่อง",
-      "englishName": "Seated Chest Press",
+      "id": "floor-press",
+      "name": "ดันอกด้วยดัมเบลบนพื้น",
+      "englishName": "Dumbbell Floor Press",
       "muscle": "chest",
       "target": "อก · แขนด้านหลัง · ไหล่ด้านหน้า",
-      "equipment": "เครื่อง Chest Press",
-      "steps": [
-        "ปรับเบาะให้มือจับอยู่ระดับกลางอก นั่งพิงพนัก วางเท้าเต็มพื้น และให้มือจับไม่ถอยลึกไปด้านหลังอก",
-        "เก็บไหล่ลงและประคองลำตัว หายใจออกขณะดันมือจับไปข้างหน้า ข้อมือตรง เหยียดแขนโดยไม่ล็อกศอก",
-        "หายใจเข้าและผ่อนมือจับกลับช้า ๆ รักษาหลังแนบพนักตลอดท่า"
+      "equipment": "ดัมเบล 1 คู่ + พื้นราบ",
+      "equipmentTypes": [
+        "dumbbell",
+        "floor"
       ],
-      "caution": "อย่าแอ่นหลัง ยกไหล่ หรือปล่อยน้ำหนักกระแทก ถ้าหน้าอกหรือหัวไหล่เจ็บให้หยุด",
-      "techniqueSource": "ace-chest"
+      "steps": [
+        "นั่งบนพื้น ถือดัมเบลเบาไว้ใกล้ลำตัว แล้วเอนลงนอนอย่างควบคุม งอเข่าและวางเท้าบนพื้น ตั้งข้อมือเหนือศอก",
+        "เก็บต้นแขนทำมุมประมาณ 45 องศากับลำตัว หายใจออกขณะดันดัมเบลขึ้นเหนืออก โดยไม่กระแทกดัมเบลชนกัน",
+        "ลดลงช้า ๆ จนต้นแขนแตะพื้นเบา ๆ ไม่เด้งศอกจากพื้น แล้วดันขึ้นใหม่ จบเซ็ตโดยลดน้ำหนักกลับใกล้ลำตัวอย่างควบคุม"
+      ],
+      "caution": "เริ่มเบาจนลงนอนและลุกนั่งพร้อมดัมเบลได้อย่างมั่นคง ไม่ยกเหนือใบหน้า ไม่ทิ้งดัมเบลลงพื้น หากยังตั้งท่าไม่ถนัดให้เริ่มจากวิดพื้นกับผนัง",
+      "techniqueSource": "ms-floor",
+      "video": {
+        "youtubeId": "uUGDRwge4F8",
+        "title": "How To: Dumbbell Floor Press",
+        "channel": "ScottHermanFitness",
+        "language": "en",
+        "sourceUrl": "https://www.youtube.com/watch?v=uUGDRwge4F8",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -151,7 +168,19 @@
         "ดันผนังเพื่อกลับมายืนตรงอย่างควบคุม หายใจตามปกติและไม่กระแทกศอก"
       ],
       "caution": "ใช้ผนังมั่นคงและพื้นที่ไม่ลื่น หากเจ็บข้อมือหรือหัวไหล่ให้หยุด",
-      "techniqueSource": "nhs-exercises"
+      "techniqueSource": "nhs-exercises",
+      "equipmentTypes": [
+        "bodyweight",
+        "wall"
+      ],
+      "video": {
+        "youtubeId": "oduG4CjpSw0",
+        "title": "How To Properly Do A Wall Push-Up",
+        "channel": "Wellen",
+        "language": "en",
+        "sourceUrl": "https://www.youtube.com/watch?v=oduG4CjpSw0",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -159,19 +188,30 @@
       "repsMax": 12,
       "restSeconds": 90,
       "doseSource": "nhs-strength",
-      "id": "seated-row",
-      "name": "ดึงหลังด้วยเครื่อง",
-      "englishName": "Chest-supported Seated Row",
+      "id": "dumbbell-row",
+      "name": "ดึงดัมเบลฝึกหลัง",
+      "englishName": "Dumbbell Bent Over Row",
       "muscle": "back",
-      "target": "หลังกลาง · แขนด้านหน้า",
-      "equipment": "เครื่อง Row แบบมีเบาะรองอก",
-      "steps": [
-        "ปรับเบาะให้มือจับอยู่ใกล้ระดับไหล่ วางเท้ามั่นคง ให้อกแตะเบาะรองเบา ๆ แล้วจับมือจับ",
-        "รักษาข้อมือตรง ดึงมือจับเข้าหาลำตัวพร้อมพาศอกไปด้านหลัง โดยให้ศอกอยู่ใกล้ลำตัวและไม่ยกไหล่",
-        "ค่อย ๆ เหยียดแขนกลับโดยอกยังแตะเบาะ หลังไม่แอ่น และไม่โยกตัวช่วย"
+      "target": "หลังกลางและด้านข้าง · แขนด้านหน้า",
+      "equipment": "ดัมเบล 1 คู่",
+      "equipmentTypes": [
+        "dumbbell"
       ],
-      "caution": "คำแนะนำนี้สำหรับเครื่องมีเบาะรองอก ไม่ใช่ Cable Row หากเครื่องต่างจากนี้ให้ขอเจ้าหน้าที่สอนตั้งค่า",
-      "techniqueSource": "ace-row"
+      "steps": [
+        "ยืนมั่นคง งอเข่าเล็กน้อยแล้วส่งสะโพกไปด้านหลัง ให้ลำตัวโน้มลงโดยหลังไม่งอ ถือดัมเบลให้ฝ่ามือหันเข้าหากัน",
+        "เกร็งหน้าท้อง ดึงศอกไปด้านหลังให้ดัมเบลเข้าหาด้านข้างลำตัว ไม่ยกไหล่หรือเงยคอ",
+        "ค่อย ๆ ลดแขนกลับโดยรักษาลำตัวให้อยู่นิ่ง ไม่เด้งขาหรือเหวี่ยงหลังช่วย"
+      ],
+      "caution": "ซ้อมพับสะโพกมือเปล่าก่อน หากหลังล่างเจ็บหรือรักษาท่าไม่ได้ ให้หยุดและขอผู้ฝึกสอนช่วยตรวจ ไม่ฝืนถือดัมเบลหนัก",
+      "techniqueSource": "pg-row",
+      "video": {
+        "youtubeId": "6gvmcqr226U",
+        "title": "How To Do A Dumbbell Bent Over Row",
+        "channel": "PureGym",
+        "language": "en",
+        "sourceUrl": "https://www.puregym.com/exercises/back/rows/dumbbell-bent-over-row/",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -179,19 +219,31 @@
       "repsMax": 12,
       "restSeconds": 90,
       "doseSource": "nhs-strength",
-      "id": "lat-pulldown",
-      "name": "ดึงบาร์ลงด้านหน้า",
-      "englishName": "Seated Lat Pulldown",
+      "id": "reverse-fly",
+      "name": "กางดัมเบลในท่าพับสะโพก",
+      "englishName": "Bent Over Dumbbell Reverse Fly",
       "muscle": "back",
-      "target": "หลังด้านข้าง · แขนด้านหน้า",
-      "equipment": "เครื่อง Lat Pulldown",
-      "steps": [
-        "ปรับแผ่นรองให้ยึดต้นขาพอดี วางเท้าเต็มพื้น จับบาร์เหนือศีรษะ เกร็งหน้าท้องเบา ๆ และเอนลำตัวได้เล็กน้อย",
-        "หายใจออก ดึงศอกลงสู่พื้นให้บาร์ลงทางด้านหน้าหาอก โดยไม่โยกลำตัวหรือแอ่นเอว",
-        "หยุดก่อนต้องดึงศอกเลยไปด้านหลังเพื่อให้บาร์ต่ำลง แล้วค่อย ๆ ผ่อนบาร์ขึ้นอย่างควบคุม"
+      "target": "ไหล่ด้านหลัง · หลังส่วนบน",
+      "equipment": "ดัมเบลเบา 1 คู่",
+      "equipmentTypes": [
+        "dumbbell"
       ],
-      "caution": "ไม่ดึงบาร์ลงหลังคอและไม่เหวี่ยงตัว ถ้าดึงลงไม่ได้โดยคุมลำตัวให้ลดน้ำหนัก",
-      "techniqueSource": "ace-pulldown"
+      "steps": [
+        "ยืนมั่นคง งอเข่าเล็กน้อย พับจากสะโพกโดยรักษาหลังตรง ปล่อยแขนลงให้ฝ่ามือหันเข้าหากันและงอศอกนิด ๆ",
+        "กางแขนออกด้านข้างอย่างควบคุม ไม่ต้องสูงเกินระดับไหล่ ให้การเคลื่อนไหวมาจากไหล่ ไม่โยกลำตัว",
+        "ลดดัมเบลกลับลงช้า ๆ รักษาหน้าท้องและลำตัวให้นิ่งตลอดครั้ง"
+      ],
+      "caution": "ท่านี้มักใช้น้ำหนักเบากว่าท่า Row มาก ไม่เหวี่ยงดัมเบล ไม่แอ่นหรือโก่งหลัง ถ้าเจ็บหัวไหล่ให้หยุด",
+      "learningNote": "ท่าเสริมสำหรับไหล่ด้านหลังและหลังส่วนบน ยังไม่ต้องเพิ่มในตาราง A/B ฝึกพับสะโพกและคุมลำตัวให้ได้ก่อน",
+      "techniqueSource": "ms-reverse",
+      "video": {
+        "youtubeId": "4Xr7bKE_fxE",
+        "title": "How To Perform Bent Over Reverse Flys - Exercise Tutorial",
+        "channel": "Buff Dudes",
+        "language": "en",
+        "sourceUrl": "https://www.youtube.com/watch?v=4Xr7bKE_fxE",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -211,7 +263,18 @@
         "ลดแขนกลับข้างลำตัวช้า ๆ โดยไม่ยกไหล่หรือเอนตัวช่วย"
       ],
       "caution": "ไม่บิดข้อมือเทดัมเบลลง ไม่เหวี่ยงหรือแอ่นหลัง ใช้น้ำหนักเบาที่คุมได้",
-      "techniqueSource": "ace-lateral"
+      "techniqueSource": "ace-lateral",
+      "equipmentTypes": [
+        "dumbbell"
+      ],
+      "video": {
+        "youtubeId": "3VcKaXpzqRo",
+        "title": "How To: Dumbbell Side Lateral Raise",
+        "channel": "ScottHermanFitness",
+        "language": "en",
+        "sourceUrl": "https://www.youtube.com/watch?v=3VcKaXpzqRo",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -219,19 +282,30 @@
       "repsMax": 12,
       "restSeconds": 90,
       "doseSource": "nhs-strength",
-      "id": "front-raise",
-      "name": "ยกดัมเบลด้านหน้า",
-      "englishName": "Front Raise",
+      "id": "shoulder-press",
+      "name": "ดันดัมเบลเหนือศีรษะ",
+      "englishName": "Standing Dumbbell Shoulder Press",
       "muscle": "shoulders",
-      "target": "ไหล่ด้านหน้า",
+      "target": "ไหล่ · แขนด้านหลัง",
       "equipment": "ดัมเบลเบา 1 คู่",
-      "steps": [
-        "ยืนมั่นคง ถือดัมเบลหน้าต้นขา งอศอกเล็กน้อยและเกร็งลำตัว",
-        "ยกแขนไปด้านหน้าช้า ๆ ไม่สูงเกินระดับไหล่ ให้ด้านนิ้วโป้งเชิดขึ้นเล็กน้อยเมื่อใกล้ด้านบน",
-        "ค่อย ๆ ลดดัมเบลกลับ โดยลำตัวยังตรงและไม่แกว่งน้ำหนัก"
+      "equipmentTypes": [
+        "dumbbell"
       ],
-      "caution": "ไม่แอ่นเอวหรือยกไหล่เพื่อช่วยยก หากหัวไหล่เจ็บให้หยุด ไม่ต้องฝืนให้สูงครบ",
-      "techniqueSource": "ace-front"
+      "steps": [
+        "ยืนแยกเท้ามั่นคง ยกดัมเบลขึ้นระดับไหล่ ให้ศอกอยู่หน้าลำตัวเล็กน้อย ไม่กางไปด้านหลัง",
+        "เกร็งหน้าท้องและสะโพก หายใจออกขณะดันดัมเบลขึ้นเหนือศีรษะ โดยเท้ายังเต็มพื้นและหลังไม่แอ่น",
+        "ค่อย ๆ ลดดัมเบลกลับระดับไหล่ รักษาลำตัวให้นิ่งและไม่ย่อเข่าดีดน้ำหนักขึ้น"
+      ],
+      "caution": "ใช้พื้นที่เหนือศีรษะที่โล่ง หากต้องแอ่นเอวหรือมีอาการเจ็บไหล่ให้หยุด ลดน้ำหนัก หรือซ้อมมือเปล่า",
+      "techniqueSource": "pg-press",
+      "video": {
+        "youtubeId": "aI2hGzsAMXs",
+        "title": "How To Do A Dumbbell Shoulder Press",
+        "channel": "PureGym",
+        "language": "en",
+        "sourceUrl": "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/dumbbell-shoulder-press/",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -239,19 +313,30 @@
       "repsMax": 12,
       "restSeconds": 90,
       "doseSource": "nhs-strength",
-      "id": "leg-press",
-      "name": "ดันขาด้วยเครื่อง",
-      "englishName": "Seated Leg Press",
+      "id": "goblet-squat",
+      "name": "สควอตถือดัมเบลหน้าอก",
+      "englishName": "Dumbbell Goblet Squat",
       "muscle": "legs",
-      "target": "ต้นขาด้านหน้า · สะโพก",
-      "equipment": "เครื่อง Seated Leg Press",
-      "steps": [
-        "นั่งให้หลังและสะโพกแนบพนัก วางเท้าเต็มแผ่นห่างประมาณสะโพก ปรับเบาะให้เข่าเริ่มงอราวมุมฉาก",
-        "เกร็งลำตัว หายใจออกขณะดันแผ่นออก เข่าเคลื่อนไปแนวเดียวกับเท้า เหยียดขาโดยไม่ล็อกเข่า",
-        "ค่อย ๆ งอเข่ากลับ หยุดก่อนสะโพกลอยหรือหลังงอ ไม่พับต้นขาอัดลำตัว"
+      "target": "ต้นขา · สะโพก · กล้ามเนื้อแกนกลาง",
+      "equipment": "ดัมเบล 1 ลูก",
+      "equipmentTypes": [
+        "dumbbell"
       ],
-      "caution": "ห้ามล็อกเข่าหรือยกสะโพกจากเบาะ ให้เจ้าหน้าที่สอนการปรับเครื่องและตัวล็อกก่อนใช้ครั้งแรก",
-      "techniqueSource": "ace-legpress"
+      "steps": [
+        "จับดัมเบลที่มั่นคงด้วยสองมือให้อยู่ใกล้อก ตั้งเท้ากว้างกว่าสะโพกเล็กน้อย ให้ศอกชี้ลง",
+        "เกร็งหน้าท้อง ย่อสะโพกลงพร้อมงอเข่า ให้เข่าไปแนวเดียวกับปลายเท้าและเท้าเต็มพื้น ลงเท่าที่หลังยังคุมได้",
+        "กดเท้าลงพื้นแล้วเหยียดสะโพกและเข่ากลับมายืน โดยดัมเบลยังอยู่ใกล้อก"
+      ],
+      "caution": "ไม่ฝืนย่อลึกจนหลังงอหรือส้นลอย ถ้าเป็นดัมเบลปรับน้ำหนักให้ล็อกแผ่นแน่น และเริ่มจากสควอตน้ำหนักตัวหากจับน้ำหนักได้ไม่มั่นคง",
+      "techniqueSource": "pg-goblet",
+      "video": {
+        "youtubeId": "MeIiIdhvXT4",
+        "title": "How To: Goblet Squat",
+        "channel": "ScottHermanFitness",
+        "language": "en",
+        "sourceUrl": "https://www.youtube.com/watch?v=MeIiIdhvXT4",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -271,7 +356,18 @@
         "กดเท้าลงพื้นแล้วเหยียดสะโพกและเข่าขึ้นพร้อมกัน หายใจออกขณะกลับมายืน"
       ],
       "caution": "ไม่จำเป็นต้องย่อลึกถึงขนานพื้น ถ้าส้นลอย เข่าพับเข้าด้านใน หรือหลังงอ ให้ลดระยะลง",
-      "techniqueSource": "ace-squat"
+      "techniqueSource": "ace-squat",
+      "equipmentTypes": [
+        "bodyweight"
+      ],
+      "video": {
+        "youtubeId": "GvrvBJYaOSM",
+        "title": "How To Squat | Nuffield Health",
+        "channel": "Nuffield Health",
+        "language": "en",
+        "sourceUrl": "https://www.youtube.com/watch?v=GvrvBJYaOSM",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -279,19 +375,31 @@
       "repsMax": 12,
       "restSeconds": 90,
       "doseSource": "nhs-strength",
-      "id": "leg-curl",
-      "name": "งอเข่าด้วยเครื่อง",
-      "englishName": "Lying Hamstrings Curl",
+      "id": "dumbbell-rdl",
+      "name": "พับสะโพกถือดัมเบล",
+      "englishName": "Dumbbell Romanian Deadlift",
       "muscle": "legs",
-      "target": "ต้นขาด้านหลัง",
-      "equipment": "เครื่อง Leg Curl แบบนอนคว่ำ",
-      "steps": [
-        "ปรับให้ข้อเข่าตรงแกนหมุนของเครื่อง ให้เบาะกดอยู่ด้านหลังของขาท่อนล่างเหนือข้อเท้า ไม่ทับส้นหรือเอ็นร้อยหวาย",
-        "นอนคว่ำ จับมือจับและประคองหน้าท้อง งอเข่าดึงเบาะเข้าหาสะโพกโดยไม่แอ่นหลัง",
-        "หยุดสั้น ๆ แล้วค่อย ๆ เหยียดเข่ากลับ โดยลำตัวยังแนบเบาะ"
+      "target": "ต้นขาด้านหลัง · สะโพก",
+      "equipment": "ดัมเบลเบา 1 คู่",
+      "equipmentTypes": [
+        "dumbbell"
       ],
-      "caution": "คำแนะนำนี้สำหรับเครื่องแบบนอนคว่ำ ถ้าหลังแอ่นหรือรู้สึกกดเจ็บที่เข่าให้หยุดและปรับเครื่อง",
-      "techniqueSource": "ace-curl"
+      "steps": [
+        "ยืนแยกเท้าประมาณสะโพก ถือดัมเบลไว้ด้านหน้า งอเข่าเล็กน้อยและประคองหน้าท้อง",
+        "ส่งสะโพกไปด้านหลัง ให้ดัมเบลลงใกล้ขาโดยหลังยังตรง หยุดเมื่อรู้สึกตึงต้นขาด้านหลัง ไม่จำเป็นต้องแตะพื้น",
+        "ดันเท้าลงพื้นแล้วพาสะโพกกลับมายืนตรง ไม่เอนหลังเกินแนวลำตัว"
+      ],
+      "caution": "ไม่ก้มหลังเพื่อให้ดัมเบลลงต่ำ ไม่ล็อกเข่าและไม่กระชาก หากรู้สึกเจ็บหลังล่างให้หยุด",
+      "learningNote": "ท่าเรียนรู้เพิ่ม: NASM จัดท่านี้ระดับกลาง จึงยังไม่ใส่ในตารางเริ่มต้น ฝึกพับสะโพกมือเปล่าและให้ผู้ฝึกสอนตรวจท่าก่อนเพิ่มน้ำหนัก",
+      "techniqueSource": "nasm-rdl",
+      "video": {
+        "youtubeId": "V8Hdl1FiNt4",
+        "title": "Dumbbell Romanian Deadlift",
+        "channel": "คลิปอ้างอิงจาก NASM",
+        "language": "en",
+        "sourceUrl": "https://www.nasm.org/resource-center/exercise-library/dumbbell-romanian-deadlift",
+        "checkedAt": "2026-09-07"
+      }
     },
     {
       "sets": 2,
@@ -304,14 +412,26 @@
       "englishName": "Glute Bridge",
       "muscle": "legs",
       "target": "สะโพก · กล้ามเนื้อแกนกลาง",
-      "equipment": "เสื่อออกกำลังกาย",
+      "equipment": "น้ำหนักตัว + พื้นราบ (เสื่อเป็นตัวเลือก)",
       "steps": [
         "นอนหงาย งอเข่า วางเท้าเต็มพื้นห่างประมาณสะโพก วางแขนข้างลำตัวและเกร็งหน้าท้องเบา ๆ",
         "กดส้นเท้าลงพื้น บีบสะโพกและยกขึ้นโดยลำตัวไม่แอ่น ไม่ต้องยกสูงจนหลังตึง",
         "ค่อย ๆ ลดสะโพกกลับลงเสื่อโดยยังคุมหน้าท้อง หายใจต่อเนื่องตลอดท่า"
       ],
       "caution": "ให้แรงมาจากสะโพก ไม่ใช่แอ่นหลังล่าง ถ้าเจ็บหลังให้หยุด",
-      "techniqueSource": "ace-bridge"
+      "techniqueSource": "ace-bridge",
+      "equipmentTypes": [
+        "bodyweight",
+        "floor"
+      ],
+      "video": {
+        "youtubeId": "AQOJhgB1O-I",
+        "title": "Hip Bridge | Nuffield Health",
+        "channel": "Nuffield Health",
+        "language": "en",
+        "sourceUrl": "https://www.youtube.com/watch?v=AQOJhgB1O-I",
+        "checkedAt": "2026-09-07"
+      }
     }
   ]
 }
