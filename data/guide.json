@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-07",
+  "sources": {
+    "acsm": {
+      "name": "ACSM · แนวทางเวทเทรนนิ่ง 2026",
+      "url": "https://acsm.org/resistance-training-guidelines-update-2026/",
+      "description": "หลักการฝึกกล้ามเนื้อหลักอย่างสม่ำเสมออย่างน้อยสัปดาห์ละ 2 วัน และปรับให้เหมาะกับแต่ละคน"
+    },
+    "nhs-strength": {
+      "name": "NHS · เซ็ตและจำนวนครั้ง",
+      "url": "https://www.nhs.uk/live-well/exercise/how-to-improve-strength-flexibility/",
+      "description": "อธิบายเซ็ต–ครั้งและแนวทาง 8–12 ครั้ง อย่างน้อย 2 เซ็ต โดยค่อย ๆ เพิ่มปริมาณ"
+    },
+    "mayo": {
+      "name": "Mayo Clinic · เริ่มฝึกและพักฟื้น",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/strength-training/art-20046670",
+      "description": "วอร์มอัป เทคนิคการฝึก และเว้นพักกล้ามเนื้อกลุ่มเดิมอย่างน้อยหนึ่งวันเต็ม"
+    },
+    "rest": {
+      "name": "Healthline · การพักระหว่างเซ็ต",
+      "url": "https://www.healthline.com/health/fitness/rest-between-sets",
+      "description": "บทความทบทวนทางการแพทย์ อธิบายช่วงพัก 60–120 วินาทีสำหรับผู้เริ่มต้น โดยให้กลับมาฝึกด้วยฟอร์มที่ดีได้"
+    },
+    "nhs-exercises": {
+      "name": "NHS · Strength exercises",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/",
+      "description": "วิธีวิดพื้นกับผนังและภาพสาธิตสำหรับเริ่มฝึก"
+    },
+    "ace-chest": {
+      "name": "ACE · Seated Chest Press",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/"
+    },
+    "ace-row": {
+      "name": "ACE · Seated Row",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/168/seated-row/"
+    },
+    "ace-pulldown": {
+      "name": "ACE · Seated Lat Pulldown",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/158/seated-lat-pulldown/"
+    },
+    "ace-legpress": {
+      "name": "ACE · Seated Leg Press",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/154/seated-leg-press/"
+    },
+    "ace-lateral": {
+      "name": "ACE · Lateral Raise",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/26/lateral-raise/"
+    },
+    "ace-front": {
+      "name": "ACE · Front Raise",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/54/front-raise/"
+    },
+    "ace-curl": {
+      "name": "ACE · Lying Hamstrings Curl",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/153/lying-hamstrings-curl/"
+    },
+    "ace-bridge": {
+      "name": "ACE · Glute Bridge",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/"
+    },
+    "ace-squat": {
+      "name": "ACE · Bodyweight Squat",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/"
+    }
+  },
+  "program": {
+    "name": "พื้นฐานทั้งตัว A/B",
+    "audience": "ผู้ใหญ่ทั่วไปที่เริ่มฝึกในยิมและไม่มีข้อห้ามในการออกกำลังกาย",
+    "provenance": "ตาราง A/B และการเลือกท่าเรียบเรียงขึ้นสำหรับเว็บนี้จากหลักการทั่วไป ไม่ใช่โปรแกรมเฉพาะบุคคลหรือโปรแกรมที่หน่วยงานต้นฉบับรับรอง",
+    "doseNote": "เว็บใช้ 2 เซ็ต × 8–12 ครั้งเป็นจุดเริ่มต้นตามแนวทางทั่วไปของ NHS; วิดพื้นกับผนังใช้ 5–10 ครั้งตามหน้าสาธิต แต่ลดจาก 3 เหลือ 2 เซ็ตสำหรับตัวอย่างนี้",
+    "restNote": "พักเริ่มต้น 90 วินาทีระหว่างเซ็ตและก่อนเปลี่ยนท่า เป็นค่าตัวอย่างในช่วง 60–120 วินาที ไม่ใช่เวลาตายตัว หากยังเหนื่อยหรือคุมท่าไม่ไหว ให้พักเพิ่มหรือลดน้ำหนัก",
+    "sources": [
+      "acsm",
+      "nhs-strength",
+      "mayo",
+      "rest"
+    ],
+    "weekly": [
+      null,
+      "A",
+      null,
+      null,
+      "B",
+      null,
+      null
+    ],
+    "workouts": {
+      "A": {
+        "name": "สร้างพื้นฐาน",
+        "description": "ฝึกขา ดันอก ดึงหลัง และไหล่ ให้ครบในวันเดียว",
+        "exercises": [
+          "leg-press",
+          "chest-press",
+          "seated-row",
+          "leg-curl",
+          "lateral-raise",
+          "glute-bridge"
+        ]
+      },
+      "B": {
+        "name": "ทบทวนแล้วเปลี่ยนมุม",
+        "description": "ฝึกทั้งตัวเช่นเดิม เปลี่ยนท่าดันและดึงเพื่อเรียนรู้รูปแบบการเคลื่อนไหว",
+        "exercises": [
+          "bodyweight-squat",
+          "wall-pushup",
+          "lat-pulldown",
+          "leg-curl",
+          "front-raise",
+          "glute-bridge"
+        ]
+      }
+    }
+  },
+  "exercises": [
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "chest-press",
+      "name": "ดันอกด้วยเครื่อง",
+      "englishName": "Seated Chest Press",
+      "muscle": "chest",
+      "target": "อก · แขนด้านหลัง · ไหล่ด้านหน้า",
+      "equipment": "เครื่อง Chest Press",
+      "steps": [
+        "ปรับเบาะให้มือจับอยู่ระดับกลางอก นั่งพิงพนัก วางเท้าเต็มพื้น และให้มือจับไม่ถอยลึกไปด้านหลังอก",
+        "เก็บไหล่ลงและประคองลำตัว หายใจออกขณะดันมือจับไปข้างหน้า ข้อมือตรง เหยียดแขนโดยไม่ล็อกศอก",
+        "หายใจเข้าและผ่อนมือจับกลับช้า ๆ รักษาหลังแนบพนักตลอดท่า"
+      ],
+      "caution": "อย่าแอ่นหลัง ยกไหล่ หรือปล่อยน้ำหนักกระแทก ถ้าหน้าอกหรือหัวไหล่เจ็บให้หยุด",
+      "techniqueSource": "ace-chest"
+    },
+    {
+      "sets": 2,
+      "repsMin": 5,
+      "repsMax": 10,
+      "restSeconds": 90,
+      "doseSource": "nhs-exercises",
+      "id": "wall-pushup",
+      "name": "วิดพื้นกับผนัง",
+      "englishName": "Wall Press-up",
+      "muscle": "chest",
+      "target": "อก · แขนด้านหลัง · ไหล่ด้านหน้า",
+      "equipment": "ผนังที่มั่นคง",
+      "steps": [
+        "ยืนห่างผนังประมาณช่วงแขน วางฝ่ามือระดับอก กางมือพอสบายและให้นิ้วชี้ขึ้น",
+        "รักษาลำตัวตรง งอศอกเข้าหาผนังช้า ๆ โดยให้ศอกอยู่ใกล้ลำตัว ไม่ปล่อยเอวแอ่น",
+        "ดันผนังเพื่อกลับมายืนตรงอย่างควบคุม หายใจตามปกติและไม่กระแทกศอก"
+      ],
+      "caution": "ใช้ผนังมั่นคงและพื้นที่ไม่ลื่น หากเจ็บข้อมือหรือหัวไหล่ให้หยุด",
+      "techniqueSource": "nhs-exercises"
+    },
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "seated-row",
+      "name": "ดึงหลังด้วยเครื่อง",
+      "englishName": "Chest-supported Seated Row",
+      "muscle": "back",
+      "target": "หลังกลาง · แขนด้านหน้า",
+      "equipment": "เครื่อง Row แบบมีเบาะรองอก",
+      "steps": [
+        "ปรับเบาะให้มือจับอยู่ใกล้ระดับไหล่ วางเท้ามั่นคง ให้อกแตะเบาะรองเบา ๆ แล้วจับมือจับ",
+        "รักษาข้อมือตรง ดึงมือจับเข้าหาลำตัวพร้อมพาศอกไปด้านหลัง โดยให้ศอกอยู่ใกล้ลำตัวและไม่ยกไหล่",
+        "ค่อย ๆ เหยียดแขนกลับโดยอกยังแตะเบาะ หลังไม่แอ่น และไม่โยกตัวช่วย"
+      ],
+      "caution": "คำแนะนำนี้สำหรับเครื่องมีเบาะรองอก ไม่ใช่ Cable Row หากเครื่องต่างจากนี้ให้ขอเจ้าหน้าที่สอนตั้งค่า",
+      "techniqueSource": "ace-row"
+    },
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "lat-pulldown",
+      "name": "ดึงบาร์ลงด้านหน้า",
+      "englishName": "Seated Lat Pulldown",
+      "muscle": "back",
+      "target": "หลังด้านข้าง · แขนด้านหน้า",
+      "equipment": "เครื่อง Lat Pulldown",
+      "steps": [
+        "ปรับแผ่นรองให้ยึดต้นขาพอดี วางเท้าเต็มพื้น จับบาร์เหนือศีรษะ เกร็งหน้าท้องเบา ๆ และเอนลำตัวได้เล็กน้อย",
+        "หายใจออก ดึงศอกลงสู่พื้นให้บาร์ลงทางด้านหน้าหาอก โดยไม่โยกลำตัวหรือแอ่นเอว",
+        "หยุดก่อนต้องดึงศอกเลยไปด้านหลังเพื่อให้บาร์ต่ำลง แล้วค่อย ๆ ผ่อนบาร์ขึ้นอย่างควบคุม"
+      ],
+      "caution": "ไม่ดึงบาร์ลงหลังคอและไม่เหวี่ยงตัว ถ้าดึงลงไม่ได้โดยคุมลำตัวให้ลดน้ำหนัก",
+      "techniqueSource": "ace-pulldown"
+    },
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "lateral-raise",
+      "name": "ยกดัมเบลด้านข้าง",
+      "englishName": "Lateral Raise",
+      "muscle": "shoulders",
+      "target": "ไหล่ด้านข้าง",
+      "equipment": "ดัมเบลเบา 1 คู่",
+      "steps": [
+        "ยืนมั่นคง ถือดัมเบลข้างตัว งอศอกเล็กน้อย เก็บไหล่ลงและเกร็งหน้าท้องเบา ๆ",
+        "ยกแขนออกด้านข้างช้า ๆ ไม่สูงเกินระดับไหล่ ให้ด้านนิ้วโป้งเชิดขึ้นเล็กน้อยเมื่อใกล้ด้านบน",
+        "ลดแขนกลับข้างลำตัวช้า ๆ โดยไม่ยกไหล่หรือเอนตัวช่วย"
+      ],
+      "caution": "ไม่บิดข้อมือเทดัมเบลลง ไม่เหวี่ยงหรือแอ่นหลัง ใช้น้ำหนักเบาที่คุมได้",
+      "techniqueSource": "ace-lateral"
+    },
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "front-raise",
+      "name": "ยกดัมเบลด้านหน้า",
+      "englishName": "Front Raise",
+      "muscle": "shoulders",
+      "target": "ไหล่ด้านหน้า",
+      "equipment": "ดัมเบลเบา 1 คู่",
+      "steps": [
+        "ยืนมั่นคง ถือดัมเบลหน้าต้นขา งอศอกเล็กน้อยและเกร็งลำตัว",
+        "ยกแขนไปด้านหน้าช้า ๆ ไม่สูงเกินระดับไหล่ ให้ด้านนิ้วโป้งเชิดขึ้นเล็กน้อยเมื่อใกล้ด้านบน",
+        "ค่อย ๆ ลดดัมเบลกลับ โดยลำตัวยังตรงและไม่แกว่งน้ำหนัก"
+      ],
+      "caution": "ไม่แอ่นเอวหรือยกไหล่เพื่อช่วยยก หากหัวไหล่เจ็บให้หยุด ไม่ต้องฝืนให้สูงครบ",
+      "techniqueSource": "ace-front"
+    },
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "leg-press",
+      "name": "ดันขาด้วยเครื่อง",
+      "englishName": "Seated Leg Press",
+      "muscle": "legs",
+      "target": "ต้นขาด้านหน้า · สะโพก",
+      "equipment": "เครื่อง Seated Leg Press",
+      "steps": [
+        "นั่งให้หลังและสะโพกแนบพนัก วางเท้าเต็มแผ่นห่างประมาณสะโพก ปรับเบาะให้เข่าเริ่มงอราวมุมฉาก",
+        "เกร็งลำตัว หายใจออกขณะดันแผ่นออก เข่าเคลื่อนไปแนวเดียวกับเท้า เหยียดขาโดยไม่ล็อกเข่า",
+        "ค่อย ๆ งอเข่ากลับ หยุดก่อนสะโพกลอยหรือหลังงอ ไม่พับต้นขาอัดลำตัว"
+      ],
+      "caution": "ห้ามล็อกเข่าหรือยกสะโพกจากเบาะ ให้เจ้าหน้าที่สอนการปรับเครื่องและตัวล็อกก่อนใช้ครั้งแรก",
+      "techniqueSource": "ace-legpress"
+    },
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "bodyweight-squat",
+      "name": "สควอตน้ำหนักตัว",
+      "englishName": "Bodyweight Squat",
+      "muscle": "legs",
+      "target": "ต้นขา · สะโพก · กล้ามเนื้อแกนกลาง",
+      "equipment": "ไม่ใช้อุปกรณ์",
+      "steps": [
+        "ยืนแยกเท้ากว้างกว่าสะโพกเล็กน้อย ปลายเท้าชี้ออกนิด ๆ เกร็งหน้าท้องและตั้งลำตัว",
+        "ส่งสะโพกไปด้านหลังพร้อมงอเข่า ย่อลงเท่าที่เท้ายังแนบพื้นและหลังไม่งอ ให้เข่าตามแนวปลายเท้า",
+        "กดเท้าลงพื้นแล้วเหยียดสะโพกและเข่าขึ้นพร้อมกัน หายใจออกขณะกลับมายืน"
+      ],
+      "caution": "ไม่จำเป็นต้องย่อลึกถึงขนานพื้น ถ้าส้นลอย เข่าพับเข้าด้านใน หรือหลังงอ ให้ลดระยะลง",
+      "techniqueSource": "ace-squat"
+    },
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "leg-curl",
+      "name": "งอเข่าด้วยเครื่อง",
+      "englishName": "Lying Hamstrings Curl",
+      "muscle": "legs",
+      "target": "ต้นขาด้านหลัง",
+      "equipment": "เครื่อง Leg Curl แบบนอนคว่ำ",
+      "steps": [
+        "ปรับให้ข้อเข่าตรงแกนหมุนของเครื่อง ให้เบาะกดอยู่ด้านหลังของขาท่อนล่างเหนือข้อเท้า ไม่ทับส้นหรือเอ็นร้อยหวาย",
+        "นอนคว่ำ จับมือจับและประคองหน้าท้อง งอเข่าดึงเบาะเข้าหาสะโพกโดยไม่แอ่นหลัง",
+        "หยุดสั้น ๆ แล้วค่อย ๆ เหยียดเข่ากลับ โดยลำตัวยังแนบเบาะ"
+      ],
+      "caution": "คำแนะนำนี้สำหรับเครื่องแบบนอนคว่ำ ถ้าหลังแอ่นหรือรู้สึกกดเจ็บที่เข่าให้หยุดและปรับเครื่อง",
+      "techniqueSource": "ace-curl"
+    },
+    {
+      "sets": 2,
+      "repsMin": 8,
+      "repsMax": 12,
+      "restSeconds": 90,
+      "doseSource": "nhs-strength",
+      "id": "glute-bridge",
+      "name": "ยกสะโพก",
+      "englishName": "Glute Bridge",
+      "muscle": "legs",
+      "target": "สะโพก · กล้ามเนื้อแกนกลาง",
+      "equipment": "เสื่อออกกำลังกาย",
+      "steps": [
+        "นอนหงาย งอเข่า วางเท้าเต็มพื้นห่างประมาณสะโพก วางแขนข้างลำตัวและเกร็งหน้าท้องเบา ๆ",
+        "กดส้นเท้าลงพื้น บีบสะโพกและยกขึ้นโดยลำตัวไม่แอ่น ไม่ต้องยกสูงจนหลังตึง",
+        "ค่อย ๆ ลดสะโพกกลับลงเสื่อโดยยังคุมหน้าท้อง หายใจต่อเนื่องตลอดท่า"
+      ],
+      "caution": "ให้แรงมาจากสะโพก ไม่ใช่แอ่นหลังล่าง ถ้าเจ็บหลังให้หยุด",
+      "techniqueSource": "ace-bridge"
+    }
+  ]
+}
