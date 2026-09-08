@@ -147,3 +147,39 @@ Tests ตรวจ schema ของข้อมูลครบทุกท่า
 เหมาะเป็นข้อมูลทั่วไปสำหรับผู้ใหญ่ที่เริ่มฝึกที่บ้าน ไม่ใช่โปรแกรมเฉพาะบุคคลหรือคำแนะนำทางการแพทย์ หากมีโรคประจำตัว บาดเจ็บ หรือข้อจำกัด ควรปรึกษาผู้เชี่ยวชาญก่อนเริ่ม และหยุดเมื่อมีอาการผิดปกติ
 
 หากแก้เนื้อหา ให้ตรวจลิงก์ต้นฉบับอีกครั้ง อัปเดต `reviewedAt` และข้อมูลที่มา แล้วรัน tests อย่าเปลี่ยนตัวเลขฝึกโดยอ้างว่าเป็นคำแนะนำของแหล่งต้นฉบับหากแหล่งนั้นไม่ได้ระบุ
+
+### Free follow-along pilot (v5)
+
+Open **เริ่มฝึก → ทำไปพร้อมกัน · Lateral Raise** to practice independently, or use
+**ทำไปพร้อมกัน · เซ็ตนี้** on the Lateral Raise set in workout A. The pilot covers
+**one reviewed standing dumbbell exercise**. Other exercises retain their existing
+YouTube tutorials; seated/bench versions from wger were not substituted for standing
+exercises. Program, nutrition and onboarding prescriptions are unchanged.
+
+The player provides a five-second preparation countdown, 8/10/12 demonstrated
+cycles, pause/resume and rest. Each completed MP4 cycle advances the demonstration
+counter; elapsed wall time never fabricates repetitions. Pausing, a video stall or
+hiding the tab stops movement cues, and resuming restarts the unfinished cycle.
+The user explicitly confirms completing a set. In a workout this advances the
+existing session once; standalone practice does not alter workout progress and
+provides a 90-second extendable rest. Nothing detects actual movement or verifies form.
+
+Thai speech uses the device's `speechSynthesis` Thai voice when available, with a
+voice-test and mute button. Availability/quality varies by browser and installed
+voices; some device voices may use a network service. Without a Thai voice the UI
+provides text and an optional Web Audio beep. No paid TTS API, account or API key
+is required. Closing, navigating away or hiding the page cancels active coaching.
+
+Media: **Goulart via wger**, video ID 6, exercise 348, licensed **CC BY-SA 4.0**.
+Source: https://wger.de/media/exercise-video/348/de69928a-8a35-4096-821c-1f46de5e0e03.MOV
+License: https://creativecommons.org/licenses/by-sa/4.0/
+The local MP4 (0.25–2.25 s source segment, half speed, resized, audio removed) and
+extracted JPEG poster are adaptations distributed under that same license.
+This media notice does not relicense unrelated application code. Original API
+record, license, retrieval date and local asset hashes are preserved in
+`assets/exercises/credits.json`; attribution is also visible inside the player.
+No affiliation with or endorsement by the creator or wger is implied.
+
+Validation: `node --test tests/*.test.mjs`. Browser/device voice playback still
+requires manual acceptance on the intended phone/browser; automated checks do
+not claim a real-device or visual UI test.

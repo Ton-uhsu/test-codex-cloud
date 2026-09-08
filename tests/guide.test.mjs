@@ -180,7 +180,7 @@ test('entrypoint, modules and JSON use existing relative assets under the GitHub
     for (const match of text.matchAll(/from '(\.[^']+)'/g)) await access(new URL(match[1], new URL(path, root)));
   }
   const app = await readFile(new URL('app.js', root), 'utf8');
-  assert.ok(app.includes("new URL('./data/guide.json?v=4', import.meta.url)"));
+  assert.ok(app.includes("new URL('./data/guide.json?v=5', import.meta.url)"));
   assert.equal(new URL('./data/guide.json', 'https://ton-uhsu.github.io/test-codex-cloud/app.js').pathname, '/test-codex-cloud/data/guide.json');
   await access(new URL('data/guide.json', root));
   await access(new URL('.nojekyll', root));

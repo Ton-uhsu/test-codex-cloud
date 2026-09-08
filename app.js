@@ -1,13 +1,14 @@
-import { DAYS, MUSCLES, localDay, localDateKey, viewFromHash, loadGuide, filterExercises, workoutForDay } from './lib/guide.mjs?v=4';
-import { renderView } from './lib/views.mjs?v=4';
-import { playVideo, stopVideos } from './lib/video.mjs?v=4';
-import { validateProfile, readProfile, writeProfile, personalizedData } from './lib/nutrition.mjs?v=4';
-import { createSession, advanceSession, remainingRest } from './lib/session.mjs?v=4';
-import { sessionWorkout } from './lib/workout-views.mjs?v=4';
+import { FOLLOW_ID, openFollow } from './lib/follow-along.mjs?v=5';
+import { DAYS, MUSCLES, localDay, localDateKey, viewFromHash, loadGuide, filterExercises, workoutForDay } from './lib/guide.mjs?v=5';
+import { renderView } from './lib/views.mjs?v=5';
+import { playVideo, stopVideos } from './lib/video.mjs?v=5';
+import { validateProfile, readProfile, writeProfile, personalizedData } from './lib/nutrition.mjs?v=5';
+import { createSession, advanceSession, remainingRest } from './lib/session.mjs?v=5';
+import { sessionWorkout } from './lib/workout-views.mjs?v=5';
 
 const app = document.querySelector('#app');
 const announcement = document.querySelector('#announcement');
-const dataURL = new URL('./data/guide.json?v=4', import.meta.url);
+const dataURL = new URL('./data/guide.json?v=5', import.meta.url);
 let storage;
 try { storage = window.localStorage; } catch { storage = null; }
 const profile = readProfile(storage);
@@ -20,6 +21,7 @@ let loading = false;
 let followsToday = true;
 let timer;
 let lastRestSeconds;
+let closeFollow;
 const guide = () => personalizedData(data, state.profile);
 
 function updateRestClock() {
@@ -36,6 +38,8 @@ function updateRestClock() {
 
 function render({ focusHeading = false, focusSelector = null } = {}) {
   if (!data) return;
+  closeFollow?.();
+  closeFollow = null;
   clearInterval(timer);
   app.innerHTML = renderView(guide(), state);
   for (const link of document.querySelectorAll('.navigation a')) {
@@ -114,6 +118,21 @@ app.addEventListener('click', (event) => {
   if (!button || button.disabled) return;
   if (button.hasAttribute('data-retry')) { void start(); return; }
   if (!data) return;
+  if (button.hasAttribute('data-follow')) {
+    const exercise = data.exercises.find(e => e.id === FOLLOW_ID);
+    const inSession = button.dataset.follow === 'session';
+    const original = state.session;
+    if (inSession && (original?.phase !== 'exercise' || sessionWorkout(data, original).exercises[original.index]?.id !== FOLLOW_ID)) return;
+    stopVideos(app, data.exercises);
+    closeFollow?.();
+    closeFollow = openFollow(exercise, { onClose: () => { closeFollow = null; }, onComplete: inSession ? () => {
+      if (state.session !== original) return;
+      state.session = advanceSession(original, sessionWorkout(data, original), 'complete');
+      render({ focusHeading: true });
+      announcement.textContent = state.session.phase === 'done' ? 'จบการฝึกรอบนี้แล้ว' : 'ยืนยันทำเซ็ตเสร็จแล้ว เริ่มพักได้';
+    } : null });
+    return;
+  }
   if (button.hasAttribute('data-play-video')) {
     const exercise = data.exercises.find((e) => e.id === button.dataset.playVideo);
     if (exercise) playVideo(app, exercise, data.exercises);
@@ -183,5 +202,7 @@ document.addEventListener('visibilitychange', () => {
   // Preserve an in-progress form and exercise when crossing local midnight.
   if (!app.querySelector('#profile-form') && !(state.showRunner && state.session?.phase !== 'done')) render();
 });
+
+window.addEventListener('pagehide', () => closeFollow?.());
 
 void start();
