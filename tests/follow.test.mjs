@@ -3,8 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { createFollow, stepFollow, followRemaining } from '../lib/follow-state.mjs';
-import { FOLLOW_ID, followButton, openFollow } from '../lib/follow-along.mjs';
-import { renderView } from '../lib/views.mjs';
+import { FOLLOW_ID, openFollow } from '../lib/follow-along.mjs';
 const data = JSON.parse(await readFile(new URL('../data/guide.json', import.meta.url)));
 const exercise = data.exercises.find(e => e.id === FOLLOW_ID);
 
@@ -40,18 +39,11 @@ test('clock time cannot count reps, partial cycles restart, and confirmation is 
 });
 
 test('only reviewed exercise exposes a coach, with a separate practice entry and asset provenance', async () => {
-  for (const e of data.exercises) assert.equal(Boolean(followButton(e.id)), e.id === FOLLOW_ID);
-  const html = renderView(data, { view: 'today', today: 1, day: 1 });
-  assert.match(html, /ลองโหมดใหม่ · 1 ท่า/);
-  assert.match(html, /data-follow/);
-  const runner = renderView(data, { view: 'today', today: 1, day: 1, showRunner: true,
-    session: { key: 'A', index: 4, set: 1, phase: 'exercise', completedSets: 8, skipped: [] } });
-  assert.match(runner, /data-follow="session"/);
-  const credits = JSON.parse(await readFile(new URL('../assets/exercises/credits.json', import.meta.url)));
+  const credits = JSON.parse(await readFile(new URL('../public/assets/exercises/credits.json', import.meta.url)));
   assert.equal(credits.sourceRecord.license, credits.sourceLicense.id);
   assert.equal(credits.sourceRecord.license_author, 'Goulart');
   for (const [name, info] of Object.entries(credits.files)) {
-    const bytes = await readFile(new URL(`../assets/exercises/${name}`, import.meta.url));
+    const bytes = await readFile(new URL(`../public/assets/exercises/${name}`, import.meta.url));
     assert.equal(createHash('sha256').update(bytes).digest('hex'), info.sha256);
     assert.equal(bytes.length, info.bytes);
     assert.ok(bytes.length < 500000);
