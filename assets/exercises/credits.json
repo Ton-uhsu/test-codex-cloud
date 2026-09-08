@@ -1,0 +1,45 @@
+{
+  "retrievedAt": "2026-09-08",
+  "api": "https://wger.de/api/v2/video/6/",
+  "sourceRecord": {
+    "id": 6,
+    "uuid": "de69928a-8a35-4096-821c-1f46de5e0e03",
+    "exercise": 348,
+    "exercise_uuid": "63375f5b-2d81-471c-bea4-fc3d207e96cb",
+    "video": "https://wger.de/media/exercise-video/348/de69928a-8a35-4096-821c-1f46de5e0e03.MOV",
+    "is_main": false,
+    "size": 43874331,
+    "duration": "18.26",
+    "width": 1920,
+    "height": 1080,
+    "codec": "hevc",
+    "codec_long": "H.265 / HEVC (High Efficiency Video Coding)",
+    "license": 2,
+    "license_title": "",
+    "license_object_url": "",
+    "license_author": "Goulart",
+    "license_author_url": "",
+    "license_derivative_source_url": "",
+    "author_history": [
+      "Goulart"
+    ]
+  },
+  "sourceLicense": {
+    "id": 2,
+    "full_name": "Creative Commons Attribution Share Alike 4",
+    "short_name": "CC-BY-SA 4",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+  },
+  "adaptationLicense": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "changes": "Source 0.25–2.25 seconds, half speed, silent H.264 640px MP4; JPEG poster from 0.25 seconds. No exercise technique correction implied.",
+  "files": {
+    "lateral-raise.mp4": {
+      "bytes": 259579,
+      "sha256": "1807813f873826c7389bc760b8e1b00f01766ec488d1c9b89313f7381da9065d"
+    },
+    "lateral-raise.jpg": {
+      "bytes": 32564,
+      "sha256": "ec654a45d98469f2ee9127793bbc059be6438422ad5791f06f04c40714814960"
+    }
+  }
+}
