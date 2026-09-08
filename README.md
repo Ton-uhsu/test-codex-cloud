@@ -4,7 +4,8 @@
 
 ## ทำอะไรได้
 
-- หน้าแรกเป็นแบบฟอร์มเป้าหมาย น้ำหนัก ส่วนสูง อายุ ตัวแปรเพศ ระดับกิจกรรม และวันฝึกแรก
+- หน้าแรกธีมดำ–แดง แสดงโปรแกรมวันนี้/วันพัก ปุ่มเริ่มฝึก ฝึกต่อจากรอบที่ค้าง และแถวการ์ดภาพเลื่อนได้
+- หน้าเป้าหมายสำหรับน้ำหนัก ส่วนสูง อายุ ตัวแปรเพศ ระดับกิจกรรม และวันฝึกแรก พร้อมเมนูมือถือด้านล่าง
 - แผนสรุปพลังงาน โปรตีน คาร์บ และไขมันต่อวัน พร้อมสูตร แหล่งอ้างอิง และขอบเขตที่ไม่คำนวณอัตโนมัติ
 - ตัวอย่างอาหาร 3 มื้อ + ของว่าง ปรับปริมาณตามเป้า แสดงกรัมอาหารสุกและยอดสารอาหารจากวัตถุดิบจริงในตัวอย่าง
 - ตารางฝึกทั้งตัว 2 วันต่อสัปดาห์ เลือกวัน A ได้ และวัน B ห่างไป 3 วัน วันละ 5 ท่า วันอื่นพักเวท (ยังไม่ตั้งข้อมูลใช้จันทร์ A / พฤหัสบดี B)
@@ -15,8 +16,8 @@
 - เวลาพักใช้เวลาจริง หมดเวลาแล้วต้องกดไปต่อเอง เพิ่มเวลาพักได้ การเปลี่ยนหน้าไม่หยุดเวลาพัก และตัวเล่นไม่ถูกสร้างใหม่ทุกครั้งที่นาฬิกาเปลี่ยน
 - ตัวเลือกจำข้อมูลแบบฟอร์มเฉพาะเบราว์เซอร์นี้ (เริ่มต้นไม่เลือก) พร้อมแก้ไขและล้างข้อมูล ไม่เก็บผลคำนวณที่อาจล้าสมัย
 - หน้าหลักการสำหรับมือใหม่และแหล่งข้อมูล พร้อมวันที่ตรวจแหล่งข้อมูล
-- รองรับหน้าจอแคบ คีย์บอร์ด ลิงก์ข้ามไปเนื้อหา และแจ้งผลการเปลี่ยนวัน/ตัวกรองสำหรับโปรแกรมอ่านหน้าจอ
-- มีสถานะโหลด ข้อความเมื่อโหลดไม่สำเร็จ ปุ่มลองใหม่ และข้อมูลสำรองกรณีปิด JavaScript
+- รองรับหน้าจอแคบ คีย์บอร์ด ลิงก์ข้ามไปเนื้อหา สถานะวัน/ตัวกรอง และ native dialog สำหรับรายละเอียดท่า
+- ข้อมูลท่ารวมใน bundle และตรวจ schema ก่อนใช้ รูปที่โหลดไม่ได้มีข้อความสำรอง และวิดีโอมีลิงก์เปิดต้นฉบับ
 
 ตัวแอปไม่มี login, backend, database, analytics หรือประวัติออกกำลังกายถาวร ความคืบหน้าเซ็ตอยู่ในหน่วยความจำจนกว่าจะรีเฟรช การเลือกวันเป็นการดูแผน ข้อมูลร่างกายไม่ส่งออกไปเซิร์ฟเวอร์ หากเลือกให้จำจะบันทึกใน `localStorage` ภายใต้ `beginner-strength.profile.v1` ของเว็บไซต์นี้ อ่านกลับโดยตรวจชนิดและช่วงข้อมูลก่อนใช้ และแจ้งเมื่อบันทึกหรือล้างไม่สำเร็จ ปุ่มล้างไม่แตะข้อมูลแอปอื่น
 
@@ -69,62 +70,78 @@
 
 การฝังวิดีโอเป็นบริการภายนอก: การตรวจลิงก์/ข้อมูลอ้างอิงไม่ใช่การรับประกันการเล่นจริงบนทุกอุปกรณ์ ยังไม่ได้ทดสอบ playback ในเบราว์เซอร์จริง
 
-## Tech stack และรันในเครื่อง
+## Stack และการพัฒนา
 
-HTML + CSS + JavaScript (native ES modules) + JSON ไม่มี runtime dependencies และไม่ต้อง build
-
-เปิดผ่าน HTTP server เพราะเบราว์เซอร์ไม่สามารถโหลด JSON / ES modules จาก `file://` ได้ตามปกติ ตัวอย่างเมื่อมี Python 3:
+React + TypeScript + Vite พร้อม CSS ของโปรเจกต์ ไม่มี backend หรือ component framework เพิ่มเติม
+ใช้ Node.js 24 (ขั้นต่ำ 22.12) และ npm ตาม lockfile:
 
 ```sh
-python3 -m http.server 8000 --bind 127.0.0.1
+npm ci
+npm run dev
+npm test
+npm run build
+npm run preview
 ```
 
-เปิด [เว็บในเครื่อง](http://127.0.0.1:8000/) จากโฟลเดอร์โปรเจกต์นี้ ไม่ต้องติดตั้ง npm packages
+`npm run build` ตรวจ TypeScript แบบ strict แล้วสร้างเว็บพร้อมเผยแพร่ใน `dist/`.
+หน้าและสถานะหลักเป็น React/TypeScript ส่วนสูตรอาหาร ตาราง และตัวนับเดิมใน `lib/`
+คง implementation ที่ทดสอบไว้ พร้อม `.d.mts` ระบุสัญญาข้อมูลให้ส่วน TypeScript.
+ตัวเล่นทำตามจังหวะเดิมถูกห่อด้วย React component ที่ดูแลการเปิด/ปิดและ cleanup;
+ไม่ได้นำ HTML renderer เดิมมาครอบ React ทั้งหน้า และลบ controller/view เดิมที่เลิกใช้แล้ว.
 
 ## Deploy ที่ GitHub Pages เดิม
 
-โปรเจกต์นี้ยังใช้ GitHub Pages แบบ `Deploy from a branch` → `main` → `/(root)` ไม่ได้เปลี่ยนการตั้งค่า hosting หรือเพิ่ม workflow
+**ก่อน Merge เวอร์ชันนี้ เปลี่ยน Settings → Pages → Build and deployment → Source เป็น GitHub Actions.**
+ต้องเปลี่ยนจาก `Deploy from a branch` เพราะ root `index.html` เป็น entrypoint ของ Vite
+และ browser ต้องได้รับไฟล์ที่ผ่าน build ใน `dist/`.
 
-เมื่อ merge PR เข้า `main` แล้ว GitHub Pages จึงจะเผยแพร่เวอร์ชันใหม่ที่ [เริ่มเวท](https://ton-uhsu.github.io/test-codex-cloud/) ตรวจผล deployment ในแท็บ Actions ของ repository หากหน้าเดิมยังแสดงอยู่ให้รอ deployment สำเร็จแล้ว refresh
+ไฟล์ `.github/workflows/pages.yml` ทำดังนี้:
 
-เก็บ `.nojekyll` เดิมไว้ และใช้ asset paths แบบ relative เพื่อรองรับ `/test-codex-cloud/` รวมถึง hash navigation (`#plan`, `#setup`, `#nutrition`, `#today`, `#library`, `#guide`) ที่ไม่ต้องตั้ง server rewrite หน้าเริ่มต้นคือ `#plan` ซึ่งแสดงแบบฟอร์มเมื่อยังไม่มีข้อมูล
+- Pull request เข้า `main`: ติดตั้งจาก lockfile ทดสอบ และ build เท่านั้น ไม่ deploy
+- Push เข้า `main` หลัง Merge: ทดสอบและ build ก่อนส่ง `dist/` เป็น Pages artifact แล้ว deploy
+- กด Run workflow เองได้จากสาขา `main`
+- สิทธิ์ทั่วไปเป็น contents:read; job deploy เท่านั้นที่มี pages:write และ id-token:write
 
-## ไฟล์
+เว็บไซต์ยังใช้ [URL เดิม](https://ton-uhsu.github.io/test-codex-cloud/).
+ตั้ง Vite `base: '/test-codex-cloud/'` และใช้ `BASE_URL` สำหรับสื่อ local.
+การเปลี่ยนหน้ายังเป็น hash (`#home`, `#plan`, `#setup`, `#nutrition`, `#today`, `#library`, `#guide`)
+จึงไม่ต้องตั้ง server rewrite. ลิงก์เก่ายังเปิดได้ หน้าเริ่มต้นเปลี่ยนเป็น `#home`.
+ข้อมูลที่เคยจำไว้ยังอ่านด้วย key `beginner-strength.profile.v1` เดิม ไม่ต้องย้ายข้อมูล.
+ไม่แก้การตั้งค่า Pages หรือ Merge อัตโนมัติในงาน migration นี้.
 
-| ไฟล์ | หน้าที่ |
+อ้างอิง: [Vite: GitHub Pages deployment](https://vite.dev/guide/static-deploy.html#github-pages).
+
+## โครงสร้าง
+
+| ตำแหน่ง | หน้าที่ |
 | --- | --- |
-| `index.html` | โครงหน้า เมนู metadata และ fallback เมื่อปิด JavaScript |
-| `styles.css` | รูปแบบ responsive สี contrast สูง และ keyboard focus |
-| `app.js` | โหลดข้อมูล เปลี่ยนหน้า เลือกวันและตัวกรอง รวมถึง retry |
-| `data/guide.json` | ท่าฝึก ตาราง A/B เซ็ต–ครั้ง คำอธิบายที่มา และ source URLs |
-| `lib/guide.mjs` | ตรวจ schema จัดการวัน ตาราง ตัวกรอง โหลดข้อมูล และ escape HTML |
-| `lib/views.mjs` | สร้าง HTML ของแต่ละหน้าจากข้อมูลที่ผ่านการตรวจ |
-| `lib/video.mjs` | URL ที่จำกัดเฉพาะ YouTube, ภาพตัวอย่าง และวงจรเริ่ม/หยุดตัวเล่น |
-| `lib/nutrition.mjs` | ตรวจข้อมูล สูตรพลังงาน/สารอาหาร ขอบเขตการคำนวณ localStorage และตารางตามวันเริ่ม |
-| `lib/meals.mjs` | ข้อมูลอาหาร USDA ปริมาณตัวอย่าง และการรวมสารอาหาร |
-| `lib/profile-views.mjs` | แบบฟอร์ม แผนสรุป และหน้าอาหารพร้อมแหล่งอ้างอิง |
-| `lib/session.mjs` | สถานะวอร์มอัป/เซ็ต/พัก/เสร็จ และเวลาพักแบบเวลาจริง |
-| `lib/workout-views.mjs` | หน้าฝึกทีละท่า ตาราง และสรุปรอบที่ฝึก |
-| `tests/guide.test.mjs` | Automated tests ด้วย Node.js built-in test runner |
-| `tests/video.test.mjs` | ตรวจอุปกรณ์/วิดีโอทุกท่า URL validation และ lifecycle ของตัวเล่น |
-| `tests/plan.test.mjs` | ตัวอย่างคำนวณที่รู้ผล กรณีไม่รองรับ ปริมาณอาหาร storage และลำดับฝึก |
+| `src/App.tsx` | เส้นทาง หน้าหลัก session แบบฟอร์ม และการเปิด/ปิดตัวเล่น |
+| `src/components/Browse.tsx` | หน้าแรก โปรแกรมวันนี้ ตาราง และคลังการ์ดท่า |
+| `src/components/Nutrition.tsx` | แบบฟอร์ม แผนส่วนตัว สารอาหาร และตัวอย่างมื้ออาหาร |
+| `src/components/Runner.tsx` | วอร์มอัป เซ็ต เวลาพัก และสรุปการฝึก |
+| `src/components/Exercise.tsx` | การ์ด รายละเอียด YouTube และ React adapter ของโหมดทำตามจังหวะ |
+| `src/components/Guide.tsx` | หลักการ แหล่งข้อมูล และเครดิตสื่อ |
+| `src/types.ts` | ชนิดข้อมูลโปรไฟล์ ท่า โปรแกรม session และผลอาหาร |
+| `src/styles.css` | ธีมดำ–แดง responsive และเมนูมือถือ |
+| `data/guide.json` | ข้อมูลท่า ตาราง A/B และที่มาเดิม |
+| `lib/` | สูตรอาหาร validation storage ตาราง session และ media engine ที่ตรวจไว้ |
+| `public/assets/exercises/` | ภาพวน ภาพปก และเครดิต CC BY-SA 4.0 |
+| `tests/` | สูตร ข้อมูล media lifecycle และผล render ของ React |
+| `vite.config.ts` | Build และ GitHub Pages base path |
+| `.github/workflows/pages.yml` | ตรวจ PR และเผยแพร่หลัง Merge |
 
-## ตรวจสอบ
+## การตรวจ
 
-ใช้ Node.js 20 ขึ้นไป (เฉพาะการทดสอบ ไม่จำเป็นสำหรับ hosting):
+`npm test` ตรวจข้อมูลครบทุกท่า ตารางและวันพัก เวลาไทย/อเมริกา สูตรทั้งสองตัวแปรเพศ
+การปัดเศษอาหาร การปฏิเสธข้อมูลที่ไม่รองรับ การจำ/ล้างโปรไฟล์ และลำดับการฝึก.
+ชุดตรวจ React ตรวจหน้าจอทั้งวันฝึก/วันพัก ฟอร์มที่อ่านค่าเดิม รายละเอียดท่าและเครดิต
+การไม่แสดงเป้าอาหารในกรณีไม่รองรับ และ controls ในหน้าฝึก.
+ชุด media lifecycle ตรวจ pause/hidden tab/stall/play rejection และการยืนยันเซ็ตซ้ำ.
 
-```sh
-node --test tests/*.test.mjs
-node --input-type=module --check < app.js
-node --check lib/guide.mjs
-node --check lib/views.mjs
-node --check lib/video.mjs
-git diff --check
-```
-
-Tests ตรวจ schema ของข้อมูลครบทุกท่า, source URLs, ตาราง 7 วันและวันพัก, โปรแกรม A/B ครบกล้ามเนื้อที่ระบุ, วันท้องถิ่นในไทย/อเมริกา, ตัวกรอง, HTML output, ป้องกันการแทรก HTML, ข้อผิดพลาด HTTP/JSON/schema, timeout, relative asset paths รวมถึงสูตรทั้งสองตัวแปรเพศ ทุกเป้าหมาย การปัดเศษ/ยอดอาหาร การปฏิเสธข้อมูลที่ไม่รองรับ การจำ/ล้างข้อมูล และลำดับ 10 เซ็ตพร้อมกรณีข้าม/พักเพิ่ม
-
-การทดสอบเหล่านี้ไม่ใช่ browser end-to-end หรือการรับรองความถูกต้องทางคลินิก ยังไม่ได้ทดสอบเบราว์เซอร์จริงในรอบนี้ ควรตรวจหลัง deploy: กรอก/แก้/ล้างข้อมูล, opt-in แล้วรีเฟรช, Back/Forward, เริ่มฝึก/ข้าม/พัก/ไปต่อจนจบ, เปลี่ยนวันและเมนู, เล่น/หยุดคลิป, fullscreen, ลิงก์สำรอง, Tab/Enter/Space และหน้าจอมือถือ
+`npm run build` ตรวจ TypeScript strict และสร้าง production assets.
+การตรวจ render เป็น server rendering และ media ใช้ event fakes ไม่ใช่การทดสอบ
+หน้าตา การกดใน browser หรือเสียงบนมือถือจริง. ก่อนใช้งานจริงควรลองการกรอก/จำ/ล้างข้อมูล,
+Back/Forward, ฝึก/พัก/ข้าม, เปิดคลิปและภาพวน, Tab/Escape และเสียงไทยบนอุปกรณ์ที่จะใช้.
 
 ## เนื้อหาและแหล่งข้อมูล
 
@@ -177,9 +194,9 @@ The local MP4 (0.25–2.25 s source segment, half speed, resized, audio removed)
 extracted JPEG poster are adaptations distributed under that same license.
 This media notice does not relicense unrelated application code. Original API
 record, license, retrieval date and local asset hashes are preserved in
-`assets/exercises/credits.json`; attribution is also visible inside the player.
+`public/assets/exercises/credits.json`; attribution is also visible inside the player.
 No affiliation with or endorsement by the creator or wger is implied.
 
-Validation: `node --test tests/*.test.mjs`. Browser/device voice playback still
+Validation: `npm test`. Browser/device voice playback still
 requires manual acceptance on the intended phone/browser; automated checks do
 not claim a real-device or visual UI test.

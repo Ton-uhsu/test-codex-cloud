@@ -1,0 +1,13 @@
+import type { Guide, Route, Workout, Exercise } from "../src/types";
+export const MUSCLES: Readonly<Record<string, string>>;
+export const DAYS: readonly string[];
+export const WEEK_ORDER: readonly number[];
+export function escapeHTML(value: unknown): string;
+export function safeSourceURL(value: string): string;
+export function localDay(date?: Date): number;
+export function localDateKey(date?: Date): string;
+export function viewFromHash(hash: string): Route;
+export function filterExercises(data: Guide, muscle?: string): Exercise[];
+export function workoutForDay(data: Guide, day: number): Workout | null;
+export function nextTrainingDay(data: Guide, day: number): number;
+export function validateGuide(data: unknown): Guide;

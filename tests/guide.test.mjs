@@ -4,7 +4,6 @@ import { readFile, access, readdir } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { DAYS, MUSCLES, escapeHTML, safeSourceURL, localDay, localDateKey, viewFromHash,
   filterExercises, workoutForDay, nextTrainingDay, validateGuide, loadGuide } from '../lib/guide.mjs';
-import { sourceLink, exerciseCard, renderView } from '../lib/views.mjs';
 
 const root = new URL('../', import.meta.url);
 const data = JSON.parse(await readFile(new URL('data/guide.json', root), 'utf8'));
@@ -63,8 +62,8 @@ test('hash navigation has a deterministic fallback', () => {
   assert.equal(viewFromHash('#library'), 'library');
   assert.equal(viewFromHash('#guide'), 'guide');
   for (const view of ['plan', 'setup', 'nutrition']) assert.equal(viewFromHash(`#${view}`), view);
-  assert.equal(viewFromHash('#unknown'), 'plan');
-  assert.equal(viewFromHash(''), 'plan');
+  assert.equal(viewFromHash('#unknown'), 'home');
+  assert.equal(viewFromHash(''), 'home');
 });
 
 test('HTML escaping and external-link validation reject executable content', () => {
@@ -72,10 +71,6 @@ test('HTML escaping and external-link validation reject executable content', () 
   for (const url of ['javascript:alert(1)', 'data:text/html,hi', 'http://example.com', '/local', 'https://user:password@example.com']) {
     assert.throws(() => safeSourceURL(url));
   }
-  const link = sourceLink(data, 'acsm', '<img onerror="alert(1)">');
-  assert.ok(link.includes('&lt;img'));
-  assert.ok(link.includes('rel="noopener noreferrer"'));
-  assert.ok(!link.includes('<img'));
 });
 
 test('invalid or incomplete data fails closed before rendering', () => {
@@ -107,51 +102,6 @@ test('invalid or incomplete data fails closed before rendering', () => {
   }
 });
 
-test('every day renders the correct workout or a usable rest-day action', () => {
-  for (let day = 0; day < 7; day += 1) {
-    const html = renderView(data, { ...state, day });
-    const isTraining = Boolean(data.program.weekly[day]);
-    assert.equal((html.match(/class="overview-number"/g) || []).length, isTraining ? 5 : 0);
-    assert.equal(html.includes('data-session-start'), isTraining);
-    assert.equal((html.match(/class="day"[^>]*aria-pressed="true"/g) || []).length, 1);
-    assert.ok(html.includes(`data-day="${day}" aria-pressed="true"`));
-    if (!isTraining) assert.ok(html.includes(`data-day="${nextTrainingDay(data, day)}">ดูวันฝึกถัดไป`));
-    assert.ok(html.includes('ข้อจำกัดการเคลื่อนไหว'));
-    assert.ok(!html.includes('undefined'));
-  }
-});
-
-test('library filters render correct counts, and guide lists every source', () => {
-  for (const muscle of Object.keys(MUSCLES)) {
-    const html = renderView(data, { ...state, view: 'library', muscle });
-    assert.equal((html.match(/<details class="exercise">/g) || []).length, filterExercises(data, muscle).length);
-    assert.ok(html.includes(`data-muscle="${muscle}" aria-pressed="true"`));
-  }
-  const html = renderView(data, { ...state, view: 'guide' });
-  for (const source of Object.values(data.sources)) assert.ok(html.includes(escapeHTML(source.url)));
-  assert.ok(html.includes(data.reviewedAt));
-  assert.ok(html.includes('ไม่ใช่โปรแกรมเฉพาะบุคคล'));
-});
-
-test('exercise cards expose full steps, dose, equipment, cautions and provenance', () => {
-  for (const exercise of data.exercises) {
-    const html = exerciseCard(data, exercise);
-    assert.ok(html.includes('<summary>'));
-    assert.equal((html.match(/<li>/g) || []).length, exercise.steps.length);
-    for (const text of [exercise.name, exercise.englishName, exercise.equipment, exercise.caution]) {
-      assert.ok(html.includes(escapeHTML(text)));
-    }
-    assert.ok(html.includes(escapeHTML(data.sources[exercise.techniqueSource].url)));
-    assert.ok(html.includes('อ่านวิธีทำต้นฉบับ'));
-    assert.ok(html.includes(`data-play-video="${exercise.id}"`));
-    assert.ok(html.includes(`https://www.youtube.com/watch?v=${exercise.video.youtubeId}`));
-  }
-  const unsafe = { ...data.exercises[0], name: '<img src=x onerror=alert(1)>', steps: ['<script>alert(1)</script>'] };
-  const html = exerciseCard(data, unsafe);
-  assert.ok(!html.includes('<script>') && !html.includes('<img src=x'));
-  assert.ok(html.includes('&lt;img src=x'));
-});
-
 test('data loading handles success, HTTP errors, malformed JSON and schema errors', async () => {
   const result = await loadGuide('https://example.com/guide.json', { fetcher: async () => ({ ok: true, json: async () => structuredClone(data) }) });
   assert.equal(result.exercises.length, 10);
@@ -165,23 +115,4 @@ test('data loading aborts a stalled request', async () => {
     signal.addEventListener('abort', () => reject(new Error('aborted')), { once: true });
   });
   await assert.rejects(loadGuide('https://example.com/guide.json', { fetcher, timeoutMs: 15 }), /aborted/);
-});
-
-test('entrypoint, modules and JSON use existing relative assets under the GitHub Pages subpath', async () => {
-  const html = await readFile(new URL('index.html', root), 'utf8');
-  assert.ok(html.includes('<html lang="th">'));
-  assert.ok(html.includes('<noscript>'));
-  assert.ok(html.includes('type="module"'));
-  const assets = [...html.matchAll(/(?:href|src)="(\.\/[^"#]+)"/g)].map((match) => match[1]);
-  assert.equal(assets.length, 2);
-  for (const asset of assets) await access(new URL(asset.split('?')[0], root));
-  for (const path of ['app.js', ...(await readdir(new URL('lib/', root))).filter((p) => p.endsWith('.mjs')).map((p) => `lib/${p}`)]) {
-    const text = await readFile(new URL(path, root), 'utf8');
-    for (const match of text.matchAll(/from '(\.[^']+)'/g)) await access(new URL(match[1], new URL(path, root)));
-  }
-  const app = await readFile(new URL('app.js', root), 'utf8');
-  assert.ok(app.includes("new URL('./data/guide.json?v=5', import.meta.url)"));
-  assert.equal(new URL('./data/guide.json', 'https://ton-uhsu.github.io/test-codex-cloud/app.js').pathname, '/test-codex-cloud/data/guide.json');
-  await access(new URL('data/guide.json', root));
-  await access(new URL('.nojekyll', root));
 });

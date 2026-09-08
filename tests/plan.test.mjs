@@ -5,7 +5,6 @@ import { calculateNutrition, validateProfile, personalizedData, readProfile, wri
 import { buildMeals, foodNutrients } from '../lib/meals.mjs';
 import { createSession, advanceSession, remainingRest } from '../lib/session.mjs';
 import { workoutForDay } from '../lib/guide.mjs';
-import { renderView } from '../lib/views.mjs';
 
 const data = JSON.parse(await readFile(new URL('../data/guide.json', import.meta.url), 'utf8'));
 const profile = { goal: 'maintain', weight: 70, height: 175, age: 25, sex: 'male', activity: 'light', needsAdvice: false, startDay: 2 };
@@ -136,47 +135,4 @@ test('extend, skip and resume preserve counts without declaring skipped sets com
   assert.equal(s.skipped.length, 5);
   assert.equal(original.phase, 'warmup');
   assert.deepEqual(original.skipped, []);
-});
-
-test('entry, result, food and guided exercise views expose usable actions with no placeholder output', () => {
-  const d = personalizedData(data, profile);
-  for (const view of ['plan', 'setup', 'nutrition']) {
-    const initial = renderView(d, { ...state, view, profile: null });
-    assert.ok(initial.includes('id="profile-form"'));
-    assert.ok(!initial.includes('class="energy-card"'));
-  }
-  for (const view of ['plan', 'setup', 'nutrition', 'today', 'library', 'guide']) {
-    const html = renderView(d, { ...state, view });
-    assert.ok(html.includes('id="page-title"'));
-    assert.ok(!/undefined|NaN|TODO/.test(html));
-  }
-  const plan = renderView(d, state);
-  assert.ok(plan.includes('2,300'));
-  assert.ok(plan.includes('href="#nutrition"'));
-  assert.ok(plan.includes('href="#today"'));
-  assert.ok(renderView(d, { ...state, view: 'nutrition' }).includes('ชั่งหลังทำสุก'));
-  const workout = workoutForDay(d, 2);
-  let session = createSession(workout);
-  for (const action of [null, 'ready', 'complete']) {
-    if (action) session = advanceSession(session, workout, action);
-    const html = renderView(d, { ...state, view: 'today', session, showRunner: true });
-    assert.ok(html.includes('data-session-pause'));
-    if (action) {
-      assert.equal((html.match(/data-play-video=/g) || []).length, 1);
-      assert.ok(html.includes('class="runner-instructions"'));
-    }
-    if (action === 'complete') assert.ok(html.includes('data-session-action="continue" disabled'));
-  }
-});
-
-test('unsupported nutrition never leaks targets into the plan or meals and fields are escaped', () => {
-  for (const view of ['plan', 'nutrition']) {
-    const html = renderView(data, { ...state, view, profile: { ...profile, needsAdvice: true } });
-    assert.ok(!html.includes('class="energy-card"'));
-    assert.ok(!html.includes('class="meal-card"'));
-    assert.ok(html.includes('ผู้เชี่ยวชาญ'));
-  }
-  const html = renderView(data, { ...state, view: 'setup', draft: { ...profile, weight: '\"><script>alert(1)</script>' } });
-  assert.ok(!html.includes('<script>'));
-  assert.ok(html.includes('&lt;script&gt;'));
 });
