@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, readdir } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { DAYS, MUSCLES, escapeHTML, safeSourceURL, localDay, localDateKey, viewFromHash,
   filterExercises, workoutForDay, nextTrainingDay, validateGuide, loadGuide } from '../lib/guide.mjs';
@@ -62,8 +62,9 @@ test('hash navigation has a deterministic fallback', () => {
   assert.equal(viewFromHash('#today'), 'today');
   assert.equal(viewFromHash('#library'), 'library');
   assert.equal(viewFromHash('#guide'), 'guide');
-  assert.equal(viewFromHash('#unknown'), 'today');
-  assert.equal(viewFromHash(''), 'today');
+  for (const view of ['plan', 'setup', 'nutrition']) assert.equal(viewFromHash(`#${view}`), view);
+  assert.equal(viewFromHash('#unknown'), 'plan');
+  assert.equal(viewFromHash(''), 'plan');
 });
 
 test('HTML escaping and external-link validation reject executable content', () => {
@@ -110,12 +111,12 @@ test('every day renders the correct workout or a usable rest-day action', () => 
   for (let day = 0; day < 7; day += 1) {
     const html = renderView(data, { ...state, day });
     const isTraining = Boolean(data.program.weekly[day]);
-    assert.equal((html.match(/<details class="exercise"(?: open)?>/g) || []).length, isTraining ? 5 : 0);
-    assert.equal((html.match(/<details class="exercise" open>/g) || []).length, isTraining ? 1 : 0);
+    assert.equal((html.match(/class="overview-number"/g) || []).length, isTraining ? 5 : 0);
+    assert.equal(html.includes('data-session-start'), isTraining);
     assert.equal((html.match(/class="day"[^>]*aria-pressed="true"/g) || []).length, 1);
     assert.ok(html.includes(`data-day="${day}" aria-pressed="true"`));
-    if (!isTraining) assert.ok(html.includes(`ดูวันฝึกถัดไป · ${DAYS[nextTrainingDay(data, day)]}`));
-    assert.ok(html.includes('ข้อจำกัดในการเคลื่อนไหว'));
+    if (!isTraining) assert.ok(html.includes(`data-day="${nextTrainingDay(data, day)}">ดูวันฝึกถัดไป`));
+    assert.ok(html.includes('ข้อจำกัดการเคลื่อนไหว'));
     assert.ok(!html.includes('undefined'));
   }
 });
@@ -174,12 +175,12 @@ test('entrypoint, modules and JSON use existing relative assets under the GitHub
   const assets = [...html.matchAll(/(?:href|src)="(\.\/[^"#]+)"/g)].map((match) => match[1]);
   assert.equal(assets.length, 2);
   for (const asset of assets) await access(new URL(asset.split('?')[0], root));
-  for (const path of ['app.js', 'lib/guide.mjs', 'lib/views.mjs', 'lib/video.mjs']) {
+  for (const path of ['app.js', ...(await readdir(new URL('lib/', root))).filter((p) => p.endsWith('.mjs')).map((p) => `lib/${p}`)]) {
     const text = await readFile(new URL(path, root), 'utf8');
     for (const match of text.matchAll(/from '(\.[^']+)'/g)) await access(new URL(match[1], new URL(path, root)));
   }
   const app = await readFile(new URL('app.js', root), 'utf8');
-  assert.ok(app.includes("new URL('./data/guide.json?v=3', import.meta.url)"));
+  assert.ok(app.includes("new URL('./data/guide.json?v=4', import.meta.url)"));
   assert.equal(new URL('./data/guide.json', 'https://ton-uhsu.github.io/test-codex-cloud/app.js').pathname, '/test-codex-cloud/data/guide.json');
   await access(new URL('data/guide.json', root));
   await access(new URL('.nojekyll', root));
