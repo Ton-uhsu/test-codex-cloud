@@ -1,3 +1,5 @@
+import { emptyTraining, readTraining, writeTraining, startTraining, recordSet, setKey } from "../lib/training.mjs";
+import type { SetResult, SetDraft } from "../lib/training.mjs";
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { localDay, localDateKey, viewFromHash } from "../lib/guide.mjs";
@@ -6,7 +8,7 @@ import {
   writeProfile,
   personalizedData,
 } from "../lib/nutrition.mjs";
-import { createSession, advanceSession } from "../lib/session.mjs";
+import { advanceSession } from "../lib/session.mjs";
 import { hasFollowMedia } from "../lib/follow-media.mjs";
 import { guide, sessionWorkout } from "./data";
 import type { Profile, Route, Session, Exercise, Workout } from "./types";
@@ -54,7 +56,12 @@ export function App() {
   const [draft, setDraft] = useState(() => profileDraft(profile, today));
   const [remember, setRemember] = useState(Boolean(profile));
   const [notice, setNotice] = useState("");
-  const [session, setSession] = useState<Session | null>(null);
+  const [training, setTraining] = useState(() => readTraining(storage(), guide));
+  const session = training.session;
+  const [storageFailed, setStorageFailed] = useState(false);
+  const [setReady, setSetReady] = useState(false);
+  const setSession = (update: Session | null | ((s: Session | null) => Session | null)) => setTraining(t => ({...t, session: typeof update === 'function' ? update(t.session) : update}));
+  useEffect(() => { setStorageFailed(!writeTraining(storage(), training)); }, [training]);
   const [showRunner, setShowRunner] = useState(false);
   const [detail, setDetail] = useState<Exercise | null>(null);
   const [follow, setFollow] = useState<{
@@ -123,7 +130,7 @@ export function App() {
     setProfile(null);
     setDraft(profileDraft(null, today));
     setRemember(false);
-    setSession(null);
+    setTraining(emptyTraining());
     setShowRunner(false);
     setFollow(null);
     setNotice(
@@ -135,7 +142,7 @@ export function App() {
   }
   function start(workout: Workout) {
     if (!session || session.phase === "done")
-      setSession(createSession(workout));
+      setTraining(t => startTraining(t, workout, crypto.randomUUID()));
     setShowRunner(true);
     navigate("today");
   }
@@ -143,10 +150,19 @@ export function App() {
     setShowRunner(true);
     navigate("today");
   };
-  const action = (event: string) =>
-    setSession((s) =>
-      s ? advanceSession(s, sessionWorkout(data, s), event) : s,
-    );
+  const action = (event: string, result?: SetResult) => {
+    if (event === 'complete') {
+      if (!session || !result) return;
+      const expected = setKey(session);
+      setTraining(t => recordSet(t, sessionWorkout(data, session), result, expected));
+    } else setSession(s => s ? advanceSession(s, sessionWorkout(data, s), event) : s);
+    setSetReady(false);
+  };
+  const saveDraft = (draft: SetDraft) => {
+    if (!session) return;
+    const key = setKey(session);
+    setTraining(t => ({...t, drafts: {...t.drafts, [key]: draft}}));
+  };
   const practice = (exercise: Exercise) => {
     if (!hasFollowMedia(exercise.id)) return;
     setDetail(null);
@@ -199,6 +215,11 @@ export function App() {
           onBack={() => setShowRunner(false)}
           onFollow={followSet}
           coaching={Boolean(follow)}
+          logs={training.logs}
+          draft={training.drafts[setKey(session)]}
+          onDraft={saveDraft}
+          setReady={setReady}
+          storageFailed={storageFailed}
         />
       ) : (
         <Schedule
@@ -267,6 +288,7 @@ export function App() {
         <span className="header-label">ดัมเบลคู่เดียว ก็เริ่มได้</span>
       </header>
       <main id="main" tabIndex={-1}>
+        {storageFailed && <p className="notice" role="status">บันทึกในเครื่องไม่ได้ อย่าเพิ่งปิดหน้านี้ ข้อมูลรอบนี้อาจหายเมื่อรีเฟรช</p>}
         {page}
       </main>
       <nav className="bottom-nav" aria-label="เมนูมือถือ">
@@ -314,20 +336,13 @@ export function App() {
       {follow && (
         <FollowPlayer
           exercise={follow.exercise}
+          autoStart={Boolean(follow.snapshot)}
           onClose={() => setFollow(null)}
           onComplete={
             follow.snapshot
               ? () => {
                   const snapshot = follow.snapshot;
-                  setSession((current) =>
-                    current === snapshot && current
-                      ? advanceSession(
-                          current,
-                          sessionWorkout(data, current),
-                          "complete",
-                        )
-                      : current,
-                  );
+                  if (session === snapshot) setSetReady(true);
                 }
               : undefined
           }

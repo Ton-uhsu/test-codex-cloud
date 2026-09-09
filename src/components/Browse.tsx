@@ -168,7 +168,7 @@ export function Home({
               <h2>โปรแกรม {session.key} · ฝึกค้างไว้</h2>
               <p>
                 ยืนยันแล้ว {session.completedSets} เซ็ต ·
-                ความคืบหน้าอยู่ในหน้านี้
+                ความคืบหน้าจำไว้ในเครื่องนี้ · จังหวะของเซ็ตที่ยังไม่ยืนยันจะเริ่มใหม่
               </p>
             </div>
             <button className="secondary" onClick={onResume}>

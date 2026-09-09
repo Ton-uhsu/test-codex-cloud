@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { CadenceCoach } from './CadenceCoach';
+import { SetRecorder } from './SetRecorder';
+import { lastResult, setKey } from '../../lib/training.mjs';
+import type { SetDraft, SetLog, SetResult } from '../../lib/training.mjs';
+import { useEffect, useState, useRef } from "react";
 import { remainingRest } from "../../lib/session.mjs";
 import { hasFollowMedia } from "../../lib/follow-media.mjs";
 import { sessionWorkout } from "../data";
@@ -11,16 +15,34 @@ export function Runner({
   onAction,
   onBack,
   onFollow,
-  coaching,
+  coaching, logs = [], draft, onDraft, setReady = false, storageFailed = false,
 }: {
   data: Guide;
   session: Session;
-  onAction: (action: string) => void;
+  onAction: (action: string, result?: SetResult) => void;
   onBack: () => void;
   onFollow: () => void;
   coaching: boolean;
+  logs?: SetLog[];
+  draft?: SetDraft;
+  onDraft?: (d: SetDraft) => void;
+  setReady?: boolean;
+  storageFailed?: boolean;
 }) {
+  const [cadence, setCadence] = useState(false);
+  const [cadenceReady, setCadenceReady] = useState(false);
+  useEffect(() => { setCadence(false); setCadenceReady(false); }, [s.index, s.set, s.phase]);
   const w = sessionWorkout(data, s);
+  const launched = useRef('');
+  const followCallback = useRef(onFollow); followCallback.current = onFollow;
+  useEffect(() => {
+    if (s.phase !== 'exercise' || document.hidden) return;
+    const key = setKey(s);
+    if (launched.current === key) return;
+    launched.current = key;
+    if (hasFollowMedia(w.exercises[s.index].id)) followCallback.current();
+    else setCadence(true);
+  }, [s.phase, s.index, s.set, s.id]);
   const total = w.exercises.reduce((n, e) => n + e.sets, 0);
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
@@ -59,6 +81,7 @@ export function Runner({
         <section className="panel warmup">
           <span className="huge-number">01</span>
           <h2>ขยับร่างกาย แล้วลองท่ามือเปล่า</h2>
+          <p>เว็บจะพาไปทีละเซ็ต มีเวลาเตรียม 5 วินาที ยืนยันจำนวนครั้งจริง แล้วพักก่อนทำต่อ บันทึกไว้ในเครื่องนี้อัตโนมัติ</p>
           <ol>
             <li>เดินหรือขยับเบา ๆ เพื่อวอร์มอัปก่อนยกน้ำหนัก</li>
             <li>
@@ -74,6 +97,10 @@ export function Runner({
             ทำท่าแรกให้ครบแล้วค่อยไปท่าถัดไป หยุดหากเจ็บแปลบ เจ็บข้อ
             หรือเวียนหัว
           </p>
+          <ul className="training-preview">{w.exercises.map(e => {
+            const previous = lastResult(logs, e.id);
+            return <li key={e.id}><strong>{e.name}</strong><br />{e.equipment} · {e.repsMin}–{e.repsMax} ครั้ง<br /><span className="fine">{previous ? `ล่าสุด: ${e.equipmentTypes.includes('dumbbell') ? `${previous.weight} กก./ลูก · ` : ''}${previous.reps} ครั้ง` : 'ยังไม่มีบันทึกครั้งก่อน'}</span></li>;
+          })}</ul>
           <button className="primary" onClick={() => onAction("ready")}>
             ▶ พร้อมแล้ว เริ่มท่าแรก
           </button>
@@ -109,8 +136,9 @@ export function Runner({
             หากยังเจ็บหรือฟื้นตัวไม่ดี ให้เลื่อนวันฝึก
           </p>
           <p className="fine">
-            ความคืบหน้าอยู่ในหน้านี้เท่านั้น รีเฟรชแล้วเริ่มใหม่
+            {storageFailed ? "ยังบันทึกในเครื่องไม่ได้" : "บันทึกเซ็ตไว้ในเบราว์เซอร์เครื่องนี้แล้ว"}
           </p>
+          <ul>{logs.filter(l => l.sessionId === s.id).map(l => <li key={l.key}>{data.exercises.find(e => e.id === l.exerciseId)?.name} · เซ็ต {l.set}: {l.weight} กก./ลูก × {l.reps} ครั้ง</li>)}</ul>
           <a className="primary" href="#nutrition">
             ดูแผนกิน
           </a>
@@ -140,7 +168,7 @@ export function Runner({
       </div>
       <div className="runner-grid">
         <section className="runner-media">
-          {coaching ? (
+          {cadence ? <CadenceCoach key={setKey(s)} exercise={e} onFinish={() => {setCadence(false); setCadenceReady(true);}} onClose={() => setCadence(false)} /> : coaching ? (
             <ExerciseImage exercise={e} />
           ) : (
             <Video key={e.id} exercise={e} />
@@ -162,6 +190,8 @@ export function Runner({
                 <small>วินาที</small>
               </p>
               <p className="fine">ถัดไป: {next}</p>
+              <p>เตรียม: {(s.set < e.sets ? e : w.exercises[s.index+1])?.equipment}</p>
+              {lastResult(logs, (s.set < e.sets ? e : w.exercises[s.index+1])?.id) && <p className="fine">บันทึกล่าสุดของท่าถัดไป: {lastResult(logs, (s.set < e.sets ? e : w.exercises[s.index+1])?.id)?.weight} กก. · {lastResult(logs, (s.set < e.sets ? e : w.exercises[s.index+1])?.id)?.reps} ครั้ง</p>}
               <p role="status">
                 {seconds === 0
                   ? "ครบเวลาพักแล้ว ไปต่อเมื่อพร้อม"
@@ -185,17 +215,10 @@ export function Runner({
                 <small>ครั้ง</small>
               </p>
               <p>ทำช้า ๆ คุมท่าได้ แล้วค่อยกดเสร็จ</p>
-              {hasFollowMedia(e.id) && (
-                <button className="primary" onClick={onFollow}>
-                  ▶ ทำไปพร้อมกัน · เซ็ตนี้
-                </button>
-              )}
-              <button
-                className={hasFollowMedia(e.id) ? "secondary" : "primary"}
-                onClick={() => onAction("complete")}
-              >
-                ✓ ทำเซ็ต {s.set} เสร็จแล้ว
+              <button className="primary" disabled={cadence || coaching} onClick={() => hasFollowMedia(e.id) ? onFollow() : setCadence(true)}>
+                ▶ ทำไปพร้อมกัน · เซ็ตนี้
               </button>
+              {!cadence && !coaching && <SetRecorder key={setKey(s)} exercise={e} set={s.set} draft={draft} previous={lastResult(logs, e.id)} onDraft={onDraft} ready={setReady || cadenceReady} onSave={result => onAction('complete', result)} />}
               <button className="text-button" onClick={() => onAction("skip")}>
                 ข้ามท่านี้
               </button>

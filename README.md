@@ -213,3 +213,29 @@ No affiliation with or endorsement by the creator or wger is implied.
 Validation: `npm test`. Browser/device voice playback still
 requires manual acceptance on the intended phone/browser; automated checks do
 not claim a real-device or visual UI test.
+
+
+### Guided programs and local training log
+
+A/B now opens a coach for each set after warmup / the user's rest-ready action.
+Reviewed movement videos keep their media-driven cycle counter. Other movements
+use a clearly labelled four-second metronome with Thai device speech and text;
+these are prompts, not measured repetitions, and no new motion-video coverage is claimed.
+The user can pause, return to the tutorial, skip, or enter actual results early.
+Completing a coach returns to a separate actual-reps form; it cannot complete a
+workout set by itself. Bodyweight sets record zero external weight; dumbbells are
+recorded in kilograms per dumbbell. Last recorded values appear beside the form,
+with only weight prefilled; repetitions always require user entry.
+
+`beginner-strength.training.v1` stores the current session, current draft and up
+to 1,000 confirmed set records in one localStorage record. Session/set identity
+prevents duplicate and stale confirmations. Reloading offers resume without
+starting motion or speech automatically. The unfinished set starts a fresh prompt
+sequence after the user resumes; it is never silently credited. Rest deadlines
+persist as absolute timestamps and still require a ready action. Invalid storage
+fails closed, and write failures show an explicit warning. No account, backend or
+cross-device sync is involved; deleting browser data removes these records.
+Profile reset clears the training state too. Starting/discarding a workout retains
+confirmed records for next-time comparison. Both program summaries include actual
+set records. Tests cover full-session reload/recording, duplicate/stale submissions,
+validation, storage failure, coach coverage and cadence suspension.

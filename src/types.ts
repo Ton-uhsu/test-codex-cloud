@@ -71,6 +71,8 @@ export interface Guide {
   };
 }
 export interface Session {
+  id?: string;
+  startedAt?: number;
   key: string;
   index: number;
   set: number;

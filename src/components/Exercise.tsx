@@ -103,11 +103,12 @@ export function Technique({
 export function FollowPlayer({
   exercise,
   onClose,
-  onComplete,
+  onComplete, autoStart = false,
 }: {
   exercise: Exercise;
   onClose: () => void;
   onComplete?: () => void;
+  autoStart?: boolean;
 }) {
   // Keep the reviewed media lifecycle engine behind a React-owned adapter.
   const callbacks = useRef({ onClose, onComplete });
@@ -116,6 +117,7 @@ export function FollowPlayer({
     let disposed = false;
     const close = openFollow(exercise, {
       assetBase: mediaBase,
+      autoStart,
       onClose: () => {
         if (!disposed) callbacks.current.onClose();
       },
