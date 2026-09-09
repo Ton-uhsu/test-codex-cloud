@@ -5,5 +5,6 @@ export function openFollow(
     onComplete?: (() => void) | null;
     onClose?: () => void;
     assetBase?: string;
+    autoStart?: boolean;
   },
 ): () => void;

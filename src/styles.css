@@ -1291,3 +1291,11 @@ progress::-moz-progress-bar {
 }
 
 .follow-card .card-art img { object-fit: contain; filter: none; }
+
+.set-recorder { border-top: 1px solid #444; padding-top: 20px; margin-top: 20px; }
+.set-recorder label, .cadence-coach label { display: grid; gap: 8px; margin: 14px 0; }
+.set-recorder input { width: 100%; min-width: 0; padding: 12px; color: inherit; background: #141416; border: 1px solid #666; border-radius: 6px; font: inherit; }
+.cadence-coach { min-height: 360px; }
+.cadence-coach .rep-number { display: block; }
+
+.training-preview { display: grid; gap: 16px; padding-left: 20px; }
