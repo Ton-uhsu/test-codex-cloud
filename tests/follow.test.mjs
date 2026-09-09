@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { createFollow, stepFollow, followRemaining } from '../lib/follow-state.mjs';
-import { FOLLOW_ID, openFollow } from '../lib/follow-along.mjs';
+import { openFollow } from '../lib/follow-along.mjs';
 const data = JSON.parse(await readFile(new URL('../data/guide.json', import.meta.url)));
-const exercise = data.exercises.find(e => e.id === FOLLOW_ID);
+const exercise = data.exercises.find(e => e.id === 'lateral-raise');
 
 test('clock time cannot count reps, partial cycles restart, and confirmation is idempotent', () => {
   for (const reps of [8, 10, 12]) {
@@ -73,7 +73,7 @@ function harness(t, options = {}) {
   globalThis.setInterval = fn => { clock = fn; return 1; };
   globalThis.clearInterval = () => { cleared = true; };
   Date.now = () => now;
-  const close = openFollow(exercise, { onComplete: options.standalone ? null : () => completed++ });
+  const close = openFollow(options.exercise || exercise, { onComplete: options.standalone ? null : () => completed++ });
   t.after(() => { close(); Object.assign(globalThis, { document: saved.document, window: saved.window, setInterval: saved.setInterval, clearInterval: saved.clearInterval }); Date.now = saved.now; });
   const event = (target, type) => target.dispatchEvent(new Event(type));
   return { nodes, dialog, doc, close,
@@ -145,3 +145,26 @@ test('standalone practice offers a real rest and never changes workout progress'
   assert.equal(h.nodes.get('[data-start]').textContent, 'เริ่มเซ็ตใหม่');
   assert.equal(h.completed, 0);
 });
+
+for (const id of ['bodyweight-squat', 'dumbbell-rdl']) {
+  test(`${id}: own media, movement cues, and count only on complete cycles`, async t => {
+    const { getFollowMedia } = await import('../lib/follow-media.mjs');
+    const media = getFollowMedia(id);
+    const h = harness(t, {exercise: data.exercises.find(e => e.id === id)});
+    assert.ok(h.dialog.innerHTML.includes(`${id}.mp4`));
+    assert.ok(h.dialog.innerHTML.includes(media.author));
+    h.click('data-start'); await h.tick(5000);
+    assert.ok(h.nodes.get('[data-cue]').textContent.includes(media.cues[0].text));
+    const video = h.nodes.get('video'); video.currentTime = media.cues[1].at;
+    video.dispatchEvent(new Event('timeupdate'));
+    assert.ok(h.nodes.get('[data-cue]').textContent.includes(media.cues[1].text));
+    assert.equal(h.nodes.get('[data-count]').textContent, '0 / 8 จังหวะ');
+    await h.end();
+    assert.equal(h.nodes.get('[data-count]').textContent, '1 / 8 จังหวะ');
+    const credits = JSON.parse(await readFile(new URL(`../public/assets/exercises/${id}.credits.json`, import.meta.url)));
+    for (const [name, info] of Object.entries(credits.files)) {
+      const bytes = await readFile(new URL(`../public/assets/exercises/${name}`, import.meta.url));
+      assert.equal(createHash('sha256').update(bytes).digest('hex'), info.sha256);
+    }
+  });
+}

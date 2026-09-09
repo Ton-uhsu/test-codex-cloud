@@ -8,7 +8,7 @@ import {
   filterExercises,
 } from "../../lib/guide.mjs";
 import { GOALS, calculateNutrition } from "../../lib/nutrition.mjs";
-import { FOLLOW_ID } from "../../lib/follow-along.mjs";
+import { hasFollowMedia } from "../../lib/follow-media.mjs";
 import { mediaBase } from "../data";
 import type { Guide, Profile, Session, Exercise, Workout } from "../types";
 import { ExerciseCard, Safety } from "./Exercise";
@@ -67,7 +67,7 @@ export function Home({
   onStart: (w: Workout) => void;
   onResume: () => void;
   onSelect: (e: Exercise) => void;
-  onFollow: () => void;
+  onFollow: (e: Exercise) => void;
 }) {
   const workout = workoutForDay(data, today);
   const nextDay = nextTrainingDay(data, today);
@@ -186,29 +186,7 @@ export function Home({
           exercises={selected.exercises}
           onSelect={onSelect}
         />
-        <section className="follow-feature">
-          <img
-            src={`${mediaBase}lateral-raise.jpg`}
-            alt="ท่ายกดัมเบลออกด้านข้าง"
-          />
-          <div>
-            <span className="eyebrow red">FOLLOW ALONG · ทดลอง 1 ท่า</span>
-            <h2>
-              วางจอ
-              <br />
-              แล้วทำไปพร้อมกัน
-            </h2>
-            <p>
-              ภาพวน นับจังหวะ และเสียงไทยเมื่อเครื่องรองรับ สำหรับ Lateral Raise
-            </p>
-            <button className="primary" onClick={onFollow}>
-              ▶ ลองทำไปพร้อมกัน
-            </button>
-            <p className="fine">
-              ฝึกแยกจากโปรแกรม · ไม่เพิ่มเซ็ตในตาราง · ไม่ต้องฝึกเพิ่มในวันพัก
-            </p>
-          </div>
-        </section>
+        <FollowShelf data={data} onFollow={onFollow} />
         <Shelf
           title="คลังท่าดัมเบลและน้ำหนักตัว"
           subtitle="เลือกดูวิธีทำ ไม่จำเป็นต้องฝึกครบทุกท่าในวันเดียว"
@@ -283,7 +261,7 @@ export function Schedule({
   onResume: () => void;
   onDiscard: () => void;
   onSelect: (e: Exercise) => void;
-  onFollow: () => void;
+  onFollow: (e: Exercise) => void;
 }) {
   const workout = workoutForDay(data, day);
   const active = session && session.phase !== "done";
@@ -385,17 +363,17 @@ export function Schedule({
         เลือกวันเพื่อดูโปรแกรม ไม่ใช่บันทึกว่าฝึกเสร็จ ·{" "}
         <a href="#setup">เปลี่ยนวันฝึกประจำ</a>
       </p>
-      <section className="onboard-banner">
-        <div>
-          <h2>ลองทำไปพร้อมกัน</h2>
-          <p>Lateral Raise · ภาพวนและเสียงไทยเมื่อเครื่องรองรับ</p>
-        </div>
-        <button className="secondary" onClick={onFollow}>
-          ▶ ลอง 1 ท่า
-        </button>
-      </section>
+      <FollowShelf data={data} onFollow={onFollow} />
       <p className="fine">{data.program.equipmentNote}</p>
       <Safety />
     </div>
   );
+}
+
+export function FollowShelf({ data, onFollow }: {data: Guide; onFollow: (e: Exercise) => void}) {
+  const exercises = data.exercises.filter(e => hasFollowMedia(e.id));
+  return <section className="shelf"><div className="section-heading"><div><h2>ทำไปพร้อมกัน</h2><p className="fine">เลือกท่า วางจอ แล้วเริ่มตามภาพและเสียงไทยเมื่อเครื่องรองรับ</p></div><span className="fine">{exercises.length} ท่า</span></div>
+    <div className="card-rail" tabIndex={0} aria-label="เลือกท่าทำไปพร้อมกัน">{exercises.map(e => <button key={e.id} className="follow-card" onClick={() => onFollow(e)}><div className="card-art"><img src={`${mediaBase}${e.id}.jpg`} alt="" loading="lazy" /></div><div className="card-copy"><div><h3>{e.name}</h3><p>{e.englishName}</p><strong className="red">▶ เริ่มทำพร้อมกัน</strong></div></div></button>)}</div>
+    <p className="fine">ฝึกแยกจากโปรแกรม · ไม่เพิ่มเซ็ตในตาราง · ไม่ต้องฝึกเพิ่มในวันพัก</p>
+  </section>;
 }

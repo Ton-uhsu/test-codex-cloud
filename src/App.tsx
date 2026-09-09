@@ -7,7 +7,7 @@ import {
   personalizedData,
 } from "../lib/nutrition.mjs";
 import { createSession, advanceSession } from "../lib/session.mjs";
-import { FOLLOW_ID } from "../lib/follow-along.mjs";
+import { hasFollowMedia } from "../lib/follow-media.mjs";
 import { guide, sessionWorkout } from "./data";
 import type { Profile, Route, Session, Exercise, Workout } from "./types";
 import { Home, Library, Schedule } from "./components/Browse";
@@ -147,10 +147,11 @@ export function App() {
     setSession((s) =>
       s ? advanceSession(s, sessionWorkout(data, s), event) : s,
     );
-  const practice = () => {
+  const practice = (exercise: Exercise) => {
+    if (!hasFollowMedia(exercise.id)) return;
     setDetail(null);
     setFollow({
-      exercise: data.exercises.find((e) => e.id === FOLLOW_ID)!,
+      exercise,
       snapshot: null,
     });
   };

@@ -1,3 +1,4 @@
+import { hasFollowMedia } from "../lib/follow-media.mjs";
 import React from "react";
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -168,7 +169,7 @@ test("React nutrition preserves targets, cooked portions, references and unsuppo
   }
 });
 
-test("React exercise details retain steps, sources, fallback video links and only one reviewed follow exercise", () => {
+test("React exercise details retain steps, sources, fallback video links and only supported reviewed follow exercises", () => {
   const list = render(<Library data={guide} onSelect={noop} />);
   assert.equal((list.match(/class="exercise-card"/g) || []).length, 10);
   for (const e of guide.exercises) {
@@ -188,7 +189,7 @@ test("React exercise details retain steps, sources, fallback video links and onl
       ),
     );
     assert.ok(html.includes(`watch?v=${e.video.youtubeId}`));
-    assert.equal(html.includes("▶ ทำไปพร้อมกัน"), e.id === "lateral-raise");
+    assert.equal(html.includes("▶ ทำไปพร้อมกัน"), hasFollowMedia(e.id));
     assert.doesNotMatch(render(<Video exercise={e} />), /<iframe/);
   }
   const sources = render(<GuidePage data={guide} />);

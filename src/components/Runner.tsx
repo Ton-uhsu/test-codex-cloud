@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { remainingRest } from "../../lib/session.mjs";
-import { FOLLOW_ID } from "../../lib/follow-along.mjs";
+import { hasFollowMedia } from "../../lib/follow-media.mjs";
 import { sessionWorkout } from "../data";
 import type { Guide, Session } from "../types";
 import { Video, Technique, ExerciseImage } from "./Exercise";
@@ -185,13 +185,13 @@ export function Runner({
                 <small>ครั้ง</small>
               </p>
               <p>ทำช้า ๆ คุมท่าได้ แล้วค่อยกดเสร็จ</p>
-              {e.id === FOLLOW_ID && (
+              {hasFollowMedia(e.id) && (
                 <button className="primary" onClick={onFollow}>
                   ▶ ทำไปพร้อมกัน · เซ็ตนี้
                 </button>
               )}
               <button
-                className={e.id === FOLLOW_ID ? "secondary" : "primary"}
+                className={hasFollowMedia(e.id) ? "secondary" : "primary"}
                 onClick={() => onAction("complete")}
               >
                 ✓ ทำเซ็ต {s.set} เสร็จแล้ว
