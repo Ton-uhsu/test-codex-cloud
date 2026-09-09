@@ -1,0 +1,31 @@
+{
+  "id": "bodyweight-squat",
+  "seconds": 4.08,
+  "cues": [
+    {
+      "at": 0,
+      "text": "ค่อย ๆ ย่อตัวลง"
+    },
+    {
+      "at": 2.4,
+      "text": "ดันตัวขึ้น"
+    }
+  ],
+  "author": "Danielflefil · Wikimedia Commons",
+  "source": "https://commons.wikimedia.org/wiki/File:Bodyweight_Squats.gif",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "changes": "แปลง GIF เป็น MP4 ลดความเร็วเหลือสองในสาม ย่อภาพ ภาพที่ปรับและภาพปกใช้ CC BY-SA 4.0",
+  "reviewedAt": "2026-09-09",
+  "sourceSha256": "cd88dedbb9d897b31ddcad466bd9dcb57f7e69a53ab30a06ec63c8235cdaf12b",
+  "files": {
+    "bodyweight-squat.mp4": {
+      "bytes": 64524,
+      "sha256": "94fac8c4ebc3ad5c369c3af870f2050930526b0c56615aa917c692adde48a5b3"
+    },
+    "bodyweight-squat.jpg": {
+      "bytes": 14596,
+      "sha256": "48822d09cba692b4f8bfbc7cce45e6bff448e3396ec803fa5cdbde226de8ed0a"
+    }
+  }
+}

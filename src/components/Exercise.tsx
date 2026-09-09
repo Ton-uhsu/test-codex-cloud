@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import type { Exercise, Guide } from "../types";
 import { MUSCLES } from "../../lib/guide.mjs";
 import { youtubeLinks } from "../../lib/video.mjs";
-import { FOLLOW_ID, openFollow } from "../../lib/follow-along.mjs";
+import { openFollow } from "../../lib/follow-along.mjs";
+import { hasFollowMedia } from "../../lib/follow-media.mjs";
 import { mediaBase } from "../data";
 
 export function ExerciseImage({
@@ -138,7 +139,7 @@ export function ExerciseDetail({
   exercise: Exercise;
   data: Guide;
   onClose: () => void;
-  onFollow: () => void;
+  onFollow: (e: Exercise) => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -183,8 +184,8 @@ export function ExerciseDetail({
         {exercise.repsMax} ครั้ง <span>·</span> พัก {exercise.restSeconds}{" "}
         วินาที
       </div>
-      {exercise.id === FOLLOW_ID && (
-        <button className="primary" onClick={onFollow}>
+      {hasFollowMedia(exercise.id) && (
+        <button className="primary" onClick={() => onFollow(exercise)}>
           ▶ ทำไปพร้อมกัน
         </button>
       )}
@@ -219,7 +220,7 @@ export function ExerciseCard({
         <span className="card-play" aria-hidden="true">
           ▶
         </span>
-        {e.id === FOLLOW_ID && <span className="card-badge">ทำไปพร้อมกัน</span>}
+        {hasFollowMedia(e.id) && <span className="card-badge">ทำไปพร้อมกัน</span>}
       </div>
       <div className="card-copy">
         {index !== undefined && (

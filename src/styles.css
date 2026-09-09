@@ -349,7 +349,7 @@ button[hidden],
   padding: 4px 3px 20px;
   scrollbar-color: #555 #171719;
 }
-.exercise-card {
+.exercise-card, .follow-card {
   padding: 0;
   border: 0;
   border-radius: 7px;
@@ -363,7 +363,7 @@ button[hidden],
     transform 0.2s,
     background 0.2s;
 }
-.exercise-card:hover {
+.exercise-card:hover, .follow-card:hover {
   transform: translateY(-4px);
   background: #242429;
 }
@@ -425,7 +425,7 @@ button[hidden],
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
 }
-.catalog-grid .exercise-card {
+.catalog-grid .exercise-card, .follow-card {
   min-width: 0;
 }
 .follow-feature {
@@ -779,7 +779,7 @@ button[hidden],
   .daily-strip a {
     margin-left: 0;
   }
-  .exercise-card {
+  .exercise-card, .follow-card {
     flex-basis: 245px;
   }
   .card-rail {
@@ -1289,3 +1289,5 @@ progress::-moz-progress-bar {
     width: 100%;
   }
 }
+
+.follow-card .card-art img { object-fit: contain; filter: none; }

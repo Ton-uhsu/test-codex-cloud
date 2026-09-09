@@ -165,13 +165,26 @@ Back/Forward, ฝึก/พัก/ข้าม, เปิดคลิปแล�
 
 หากแก้เนื้อหา ให้ตรวจลิงก์ต้นฉบับอีกครั้ง อัปเดต `reviewedAt` และข้อมูลที่มา แล้วรัน tests อย่าเปลี่ยนตัวเลขฝึกโดยอ้างว่าเป็นคำแนะนำของแหล่งต้นฉบับหากแหล่งนั้นไม่ได้ระบุ
 
-### Free follow-along pilot (v5)
+### Free follow-along library
 
-Open **เริ่มฝึก → ทำไปพร้อมกัน · Lateral Raise** to practice independently, or use
-**ทำไปพร้อมกัน · เซ็ตนี้** on the Lateral Raise set in workout A. The pilot covers
-**one reviewed standing dumbbell exercise**. Other exercises retain their existing
-YouTube tutorials; seated/bench versions from wger were not substituted for standing
-exercises. Program, nutrition and onboarding prescriptions are unchanged.
+Choose a card in **ทำไปพร้อมกัน** on Home or Schedule, or open a supported exercise detail.
+Three reviewed movement cycles are available: **Lateral Raise, Bodyweight Squat,
+and Dumbbell Romanian Deadlift**. The workout runner also offers follow-along for
+supported sets (Squat and Lateral Raise in A). Standalone practice does not add sets
+to the program. RDL remains an optional learning exercise with its existing learning
+note; it is not added to A/B. Other exercises keep their YouTube tutorials.
+
+Each media entry in `lib/follow-media.mjs` selects its own local MP4, poster,
+movement cue timestamps and attribution. Bodyweight Squat uses Danielflefil's
+[Commons GIF](https://commons.wikimedia.org/wiki/File:Bodyweight_Squats.gif), under
+CC BY-SA 4.0, converted to a slower 4.08-second MP4. The adapted MP4 and poster
+retain CC BY-SA 4.0. RDL uses Capt. Matthew Holfinger's
+[DVIDS demonstration](https://www.dvidshub.net/video/548459/dumbbell-romanian-deadlift),
+marked public domain in the United States; the 19.9–24.5-second excerpt is resized
+and silent. The player includes the required non-endorsement disclaimer and links
+to DVIDS use restrictions. Per-file credits include source and output checksums.
+No bench, machine or barbell variation is substituted. The Glute Bridge challenge
+candidate was excluded because its page flags restricted copyrighted portions.
 
 The player provides a five-second preparation countdown, 8/10/12 demonstrated
 cycles, pause/resume and rest. Each completed MP4 cycle advances the demonstration
