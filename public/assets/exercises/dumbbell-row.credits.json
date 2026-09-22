@@ -1,0 +1,33 @@
+{
+  "id": "dumbbell-row",
+  "seconds": 4.52,
+  "cues": [
+    {
+      "at": 0,
+      "text": "ดึงศอกไปด้านหลัง"
+    },
+    {
+      "at": 2.1,
+      "text": "ค่อย ๆ ลดแขนลง"
+    }
+  ],
+  "author": "Capt. Matthew Holfinger · U.S. Marine Corps / DVIDS",
+  "source": "https://www.dvidshub.net/video/636921/dumbbell-bent-over-rows",
+  "license": "Public domain (United States)",
+  "licenseUrl": "https://www.dvidshub.net/about/copyright",
+  "changes": "ตัดช่วง 7.05–8.55 วินาที เลือกภาพมุมด้านข้างจากครึ่งล่าง ลดความเร็วเหลือหนึ่งในสามและตัดเสียง",
+  "disclaimer": "The appearance of U.S. Department of War (DoW) visual information does not imply or constitute DoW endorsement.",
+  "reviewedAt": "2026-09-12",
+  "sourceAsset": "https://d34w7g4gy10iej.cloudfront.net/video/1811/DOD_106174434/DOD_106174434-1024x576-1769k.mp4",
+  "sourceSha256": "417d4011bb689706f2d7a2cce884a901495d035699718993e240787e61b1556b",
+  "files": {
+    "dumbbell-row.mp4": {
+      "bytes": 38307,
+      "sha256": "9d4ea9f2b189a5208242cc1aa1d7309da2b8379a9f13e123463982859c1b92f2"
+    },
+    "dumbbell-row.jpg": {
+      "bytes": 20119,
+      "sha256": "d349b72773ff6a0fa592d3b79abf0cf25818cdeb9344956e3c2b1f923465d1bf"
+    }
+  }
+}
