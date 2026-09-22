@@ -1,0 +1,36 @@
+{
+  "id": "floor-press",
+  "seconds": 6,
+  "cues": [
+    {
+      "at": 0,
+      "text": "ดันดัมเบลขึ้น"
+    },
+    {
+      "at": 1.5,
+      "text": "คงท่า หายใจตามปกติ"
+    },
+    {
+      "at": 4.5,
+      "text": "ค่อย ๆ ลดลงสู่พื้น"
+    }
+  ],
+  "author": "Centers for Disease Control and Prevention · Wikimedia Commons",
+  "source": "https://commons.wikimedia.org/wiki/File:Chest_press-CDC_strength_training_for_older_adults.gif",
+  "license": "Public domain (United States)",
+  "licenseUrl": "https://commons.wikimedia.org/wiki/File:Chest_press-CDC_strength_training_for_older_adults.gif#Licensing",
+  "changes": "ภาพวาดสาธิตดันอกบนพื้นของ CDC แปลง GIF เป็น MP4 หนึ่งรอบ คงจังหวะต้นฉบับ เพิ่มขอบขาว 1 พิกเซล ไม่มีเสียง",
+  "reviewedAt": "2026-09-12",
+  "sourceAsset": "https://upload.wikimedia.org/wikipedia/commons/8/88/Chest_press-CDC_strength_training_for_older_adults.gif",
+  "sourceSha256": "e6db5fcdad73d1320550f9da7f73b13c7b53b8c702f26ddcf74aa5daa2f71019",
+  "files": {
+    "floor-press.mp4": {
+      "bytes": 11778,
+      "sha256": "2fdaf3990384fa1efdf19f851163a41a294b32c00a7ba8281b628eaa9bb19721"
+    },
+    "floor-press.jpg": {
+      "bytes": 5530,
+      "sha256": "1a0827899bbe2a0b7851b8c77bb56a62adf1e84ac096b75936e4d786978278b5"
+    }
+  }
+}

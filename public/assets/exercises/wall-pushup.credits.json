@@ -1,0 +1,32 @@
+{
+  "id": "wall-pushup",
+  "seconds": 3.52,
+  "cues": [
+    {
+      "at": 0,
+      "text": "งอศอกเข้าหาผนัง"
+    },
+    {
+      "at": 2,
+      "text": "ดันตัวออกจากผนัง"
+    }
+  ],
+  "author": "Centers for Disease Control and Prevention · Wikimedia Commons",
+  "source": "https://commons.wikimedia.org/wiki/File:Wallpushup-CDC_strength_training_for_older_adults.gif",
+  "license": "Public domain (United States)",
+  "licenseUrl": "https://commons.wikimedia.org/wiki/File:Wallpushup-CDC_strength_training_for_older_adults.gif#Licensing",
+  "changes": "ภาพวาดสาธิตของ CDC แปลง GIF เป็น MP4 หนึ่งรอบ คงจังหวะต้นฉบับ ไม่มีเสียง",
+  "reviewedAt": "2026-09-12",
+  "sourceAsset": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Wallpushup-CDC_strength_training_for_older_adults.gif",
+  "sourceSha256": "42e90edcba8fd734573e6e876bf3192f5ee1b0bb8876fea95dd7b3e23f0fc16c",
+  "files": {
+    "wall-pushup.mp4": {
+      "bytes": 15887,
+      "sha256": "3b4238f8b034cb21076381f6fd1ce7b36c58dc342d6c92b6f05e4ae195acf08a"
+    },
+    "wall-pushup.jpg": {
+      "bytes": 6853,
+      "sha256": "eae6e04e28944b1b6710aaa5d9695611b9dc02c5b64b41c8eb7f1f563afa6c11"
+    }
+  }
+}

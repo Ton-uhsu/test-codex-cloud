@@ -125,7 +125,7 @@ npm run preview
 | `src/styles.css` | ธีมดำ–แดง responsive และเมนูมือถือ |
 | `data/guide.json` | ข้อมูลท่า ตาราง A/B และที่มาเดิม |
 | `lib/` | สูตรอาหาร validation storage ตาราง session และ media engine ที่ตรวจไว้ |
-| `public/assets/exercises/` | ภาพวน ภาพปก และเครดิต CC BY-SA 4.0 |
+| `public/assets/exercises/` | ภาพวน ภาพปก และเครดิตสิทธิ์ใช้งานรายไฟล์ |
 | `tests/` | สูตร ข้อมูล media lifecycle และผล render ของ React |
 | `vite.config.ts` | Build และ GitHub Pages base path |
 | `.github/workflows/pages.yml` | ตรวจ PR และเผยแพร่หลัง Merge |
@@ -168,9 +168,10 @@ Back/Forward, ฝึก/พัก/ข้าม, เปิดคลิปแล�
 ### Free follow-along library
 
 Choose a card in **ทำไปพร้อมกัน** on Home or Schedule, or open a supported exercise detail.
-Three reviewed movement cycles are available: **Lateral Raise, Bodyweight Squat,
-and Dumbbell Romanian Deadlift**. The workout runner also offers follow-along for
-supported sets (Squat and Lateral Raise in A). Standalone practice does not add sets
+Six reviewed movement cycles are available: **Lateral Raise, Bodyweight Squat,
+Dumbbell Romanian Deadlift, Floor Press, Dumbbell Bent Over Row and Wall Push-up**.
+The workout runner uses these for supported sets: four of five movements in A
+and two of five in B (five of the eight distinct A/B movements). Standalone practice does not add sets
 to the program. RDL remains an optional learning exercise with its existing learning
 note; it is not added to A/B. Other exercises keep their YouTube tutorials.
 
@@ -186,12 +187,29 @@ to DVIDS use restrictions. Per-file credits include source and output checksums.
 No bench, machine or barbell variation is substituted. The Glute Bridge challenge
 candidate was excluded because its page flags restricted copyrighted portions.
 
-The player provides a five-second preparation countdown, 8/10/12 demonstrated
-cycles, pause/resume and rest. Each completed MP4 cycle advances the demonstration
+The new Floor Press and Wall Push-up loops are CDC illustrations, not filmed
+movement. Their [floor press](https://commons.wikimedia.org/wiki/File:Chest_press-CDC_strength_training_for_older_adults.gif)
+and [wall push-up](https://commons.wikimedia.org/wiki/File:Wallpushup-CDC_strength_training_for_older_adults.gif)
+file pages identify them as U.S. government public-domain works. They retain the
+original frame timing (6.0 and 3.52 seconds after encoding) and have no audio.
+The row uses the side view from [DVIDS video 636921](https://www.dvidshub.net/video/636921/dumbbell-bent-over-rows),
+a public-domain U.S. Marine Corps demonstration by Capt. Matthew Holfinger.
+One full cycle at 7.05–8.55 seconds is cropped, slowed to one-third speed and muted
+(4.52 seconds in the output). Its credit includes the DVIDS non-endorsement notice.
+
+Glute Bridge, Dumbbell Goblet Squat and Standing Dumbbell Shoulder Press still
+use the existing cadence coach and linked tutorials in A/B. Reviewed candidates
+for them had equipment/position mismatches or unclear/restricted media rights;
+seated presses, kettlebell squats and copyrighted challenge footage were not used.
+
+The player provides a five-second preparation countdown, demonstrated cycles
+within the exercise prescription (5–10 for Wall Push-up; 8–12 for the others),
+pause/resume and rest. The initial target is the lower end of that range. Each completed MP4 cycle advances the demonstration
 counter; elapsed wall time never fabricates repetitions. Pausing, a video stall or
 hiding the tab stops movement cues, and resuming restarts the unfinished cycle.
-The user explicitly confirms completing a set. In a workout this advances the
-existing session once; standalone practice does not alter workout progress and
+The user explicitly confirms completing a set. In a workout this returns to the
+actual weight/rep form; only confirming that record advances the session.
+Standalone practice does not alter workout progress and
 provides a 90-second extendable rest. Nothing detects actual movement or verifies form.
 
 Thai speech uses the device's `speechSynthesis` Thai voice when available, with a
